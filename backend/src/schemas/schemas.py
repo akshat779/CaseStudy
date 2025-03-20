@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from typing import List, Optional
+from typing import List, Optional,Dict
 from enum import Enum
 
 class RoleEnum(str, Enum):
@@ -47,11 +47,14 @@ class OrderItemBase(BaseModel):
     product_id: int
     quantity: int
     unit_price: float
+    product_name: str
     total_price: float
 
 class OrderItemCreate(BaseModel):
     product_id: int
     quantity: int
+   
+
 
 class OrderItem(OrderItemBase):
     id: int
@@ -65,6 +68,8 @@ class OrderBase(BaseModel):
     total_quantity: int
     total_amount: int
     status: str
+    order_items_data: List[Dict]
+
 
 class OrderCreate(OrderBase):
     pass
@@ -72,8 +77,7 @@ class OrderCreate(OrderBase):
 class Order(OrderBase):
     id: int
     user_id: int
-   
-
+    
     class Config:
         orm_mode = True
 

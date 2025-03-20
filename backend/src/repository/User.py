@@ -118,6 +118,7 @@ def create_order_item(user_id: int, request: schemas.OrderItemCreate, db: Sessio
     new_order_item = models.OrderItem(
         user_id=user_id,
         order_id= order.id,  
+        product_name=product.name,
         product_id=request.product_id,
         quantity=request.quantity,
         unit_price=unit_price,
@@ -198,42 +199,93 @@ def delete_order_item(user_id: int, id: int, db: Session):
     db.commit()
     return "Order item deleted"
 
+# def create_order(user_id: int, db: Session):
+#     order_items = db.query(models.OrderItem).filter(models.OrderItem.user_id == user_id).all()
+#     if not order_items:
+#         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No order items to place an order")
+
+#     total_quantity = sum(item.quantity for item in order_items)
+#     total_amount = sum(item.total_price for item in order_items)
+
+#     order_items_data = [
+#         {
+#             "product_id": item.product_id,
+#             "quantity": str(item.quantity),
+#             "unit_price": str(item.unit_price),
+#             "total_price": str(item.total_price)
+#         }
+#         for item in order_items
+#     ]
+
+#     order = models.Order(
+#         user_id=user_id,
+#         total_quantity=total_quantity,
+#         total_amount=total_amount,
+#         status="placed",
+#         order_items_data=order_items_data   
+#     )
+#     db.add(order)
+  
+
+#     db.commit()
+#     db.refresh(order)
+
+#     # Assign order_id to order items and update order items
+#     # for item in order_items:
+#     #     item.order_id = order.id
+#     #     db.add(item)
+#     # db.commit()
+
+#     # Query the order again to include the order items in the response
+#     # order_with_items = db.query(models.Order).filter(models.Order.id == order.id).first()
+
+#     # Clear order items
+#     for item in order_items:
+#         db.delete(item)
+#     db.commit()
+
+#     return order
+
 def create_order(user_id: int, db: Session):
+    # Fetch the pending order for the user
+    order = db.query(models.Order).filter(models.Order.user_id == user_id, models.Order.status == 'pending').first()
+    if not order:
+        raise HTTPException(status_code=400, detail="No pending order to place")
+
+    # Fetch all order items for the user
     order_items = db.query(models.OrderItem).filter(models.OrderItem.user_id == user_id).all()
     if not order_items:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No order items to place an order")
+        raise HTTPException(status_code=400, detail="No order items to place an order")
 
-    total_quantity = sum(item.quantity for item in order_items)
-    total_amount = sum(item.total_price for item in order_items)
+    # Serialize the order items
+    order_items_data = [
+        {   "product_name":item.product_name,
+            "product_id": item.product_id,
+            "quantity": str(item.quantity),
+            "unit_price": str(item.unit_price),
+            "total_price": str(item.total_price)
+        }
+        for item in order_items
+    ]
 
-    order = models.Order(
-        user_id=user_id,
-        total_quantity=total_quantity,
-        total_amount=total_amount,
-        status="placed"
-    )
-    db.add(order)
+    # Update the order with the serialized order items and change status to 'placed'
+    order.total_quantity = sum(item.quantity for item in order_items)
+    order.total_amount = sum(item.total_price for item in order_items)
+    order.status = "placed"
+    order.order_items_data = order_items_data
+
+    # Clear the order items for the user
+    for item in order_items:
+        db.delete(item)
+
     db.commit()
     db.refresh(order)
 
-    # Assign order_id to order items and update order items
-    for item in order_items:
-        item.order_id = order.id
-        db.add(item)
-    db.commit()
-
-    # Query the order again to include the order items in the response
-    order_with_items = db.query(models.Order).filter(models.Order.id == order.id).first()
-
-    # Clear order items
-    for item in order_items:
-        db.delete(item)
-    db.commit()
-
-    return order_with_items
+    return order
 
 def get_all_orders(user_id: int, db: Session,limit:int,offset:int):
     orders = db.query(models.Order).filter(models.Order.user_id == user_id).offset(offset).limit(limit).all()
+    # print(orders)
     if not orders:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No orders found for this user")
     return orders

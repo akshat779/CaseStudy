@@ -123,7 +123,7 @@ def create_order(db: Session = Depends(get_db), current_user: models.User = Depe
     user_id = db.query(models.User).filter(models.User.username == current_user.username).first().id
     return User.create_order(user_id, db)
 
-@router.get("/all-orders", response_model=List[schemas.Order])
+@router.get("/all-orders")
 def get_all_orders(db: Session = Depends(get_db), current_user: models.User = Depends(keycloak.get_current_user),limit:int = Query(10),offset:int =  Query(0)):
     user_id = db.query(models.User).filter(models.User.username == current_user.username).first().id
     return User.get_all_orders(user_id, db,limit,offset)
