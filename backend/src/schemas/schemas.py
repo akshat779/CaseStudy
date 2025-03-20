@@ -31,13 +31,14 @@ class ProductBase(BaseModel):
     price: int
     category: Optional[str] = None
     quantity: int
+    image: Optional[str] = None
 
 class ProductCreate(ProductBase):
     pass
 
 class Product(ProductBase):
     id: int
-    user_id: Optional[int]
+    tenant_id: Optional[int]
 
     class Config:
         orm_mode = True

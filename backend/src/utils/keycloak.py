@@ -82,6 +82,14 @@ def has_role(required_role:str):
     return role_checker
 
 
+def hasAdminOrTenatRole():
+    def role_checker(token:schemas.KeycloakToken = Depends(get_current_user)) -> schemas.KeycloakToken:
+        if "admin" not in token.roles and "tenant" not in token.roles:
+            raise HTTPException(status_code=403, detail="Insufficient permissions")
+        return token
+    return role_checker
+
+
 async def get_keycloak_admin_token() -> str:
     async with httpx.AsyncClient() as client:
         response = await client.post(

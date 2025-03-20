@@ -25,7 +25,8 @@ def get_all_admins(db: Session = Depends(get_db)):
 #     return Admin.create_admin(request, db)
 
 # , dependencies=[Depends(keycloak.has_role("admin"))]
-@router.post("/create", dependencies=[Depends(keycloak.has_role("admin"))])
+
+@router.post("/create")
 async def create_admin(admin_request: schemas.UserCreate,db: Session = Depends(get_db)):
     token = await keycloak.get_keycloak_admin_token()
     

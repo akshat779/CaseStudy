@@ -1,7 +1,7 @@
 # this is the admin repository
 from ..models import models
 from ..schemas import schemas
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from ..utils.database import get_db
 from fastapi import Depends
@@ -10,7 +10,7 @@ from ..utils.hashing import hash_password
 
 
 def get_all_admins(db: Session = Depends(get_db)):
-    admins = db.query(models.Admin).options(joinedload(models.Admin.user)).all()
+    admins = db.query(models.User).filter(models.User.role == schemas.RoleEnum.admin).all()
     return admins
 
 def create_admin(request: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -25,16 +25,12 @@ def create_admin(request: schemas.UserCreate, db: Session = Depends(get_db)):
         password=hashed_password,
         role=request.role,
         firstname = request.firstname,
-        lastname = request.lastname
+        lastname = request.lastname,
+        image = request.image
     )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-
-    new_admin = models.Admin(user_id=new_user.id)
-    db.add(new_admin)
-    db.commit()
-    db.refresh(new_admin)
 
     finalUser = db.query(models.User).filter(models.User.id == new_user.id).first()
     return finalUser

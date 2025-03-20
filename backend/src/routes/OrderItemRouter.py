@@ -6,12 +6,12 @@ from ..repository import OrderItem
 from typing import List
 
 router = APIRouter(
-    prefix="/order-items",
+    prefix="/products",
     tags=["products"]
 )
 
 
 
-@router.get("/products/", response_model=List[schemas.Product])
+@router.get("/", response_model=List[schemas.Product])
 def get_all_products(db: Session = Depends(get_db)):
     return OrderItem.get_all_products(db)

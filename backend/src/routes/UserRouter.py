@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 from ..utils.database import get_db
 from ..schemas import schemas
 from typing import List
-# from ..utils.dependencies import is_self_or_admin
 from ..models import models
 from ..utils import keycloak
 import httpx
@@ -101,7 +100,7 @@ def delete( db: Session = Depends(get_db), current_user: models.User = Depends(k
     user_id = db.query(models.User).filter(models.User.username == current_user.username).first().id
     return User.delete(user_id, db)
 
-@router.post("/order-items/", response_model=schemas.OrderItem)
+@router.post("/order-items/", response_model=schemas.OrderItem, dependencies=[Depends(keycloak.has_role("user"))])
 def create_order_item(request: schemas.OrderItemCreate, db: Session = Depends(get_db), current_user: models.User = Depends(keycloak.get_current_user)):
     user_id = db.query(models.User).filter(models.User.username == current_user.username).first().id
     return User.create_order_item(user_id, request, db)
