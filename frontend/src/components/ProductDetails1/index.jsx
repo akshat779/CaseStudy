@@ -1,4 +1,4 @@
-import { Text, Heading } from "./..";
+import { Text, Heading } from "..";
 import React from "react";
 export default function ProductDetails1({
   productTitle = "Men’s winter jacket",
