@@ -1,0 +1,1 @@
+import { Text, Heading, RatingBar } from "./..";import React from "react";export default function ProductReview({  ratingBar,  reviewDate = "October 21, 2020",  reviewTitle = "Amazing and durable jacket",
