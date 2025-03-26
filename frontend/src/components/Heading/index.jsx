@@ -30,8 +30,8 @@ const Heading = ({
       className={`text-text_primary font-publicsans ${className} ${sizes[size]}`}
       {...restProps}
     >
-      {" "}
-      {children}{" "}
+      
+      {children}
     </Component>
   );
 };

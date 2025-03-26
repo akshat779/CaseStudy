@@ -8,16 +8,6 @@ import {
   Img,
   Heading,
 } from "../../components";
-import { Helmet } from "react-helmet";
-import {
-  Text,
-  Input,
-  Button,
-  CheckBox,
-  SelectBox,
-  Img,
-  Heading,
-} from "../../components";
 import { CloseSVG } from "../../components/Input/close";
 import ProductCard from "../../components/ProductCard";
 import React from "react";
