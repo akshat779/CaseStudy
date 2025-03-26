@@ -45,6 +45,14 @@ const Home = () => {
         </li>
         <li style={{ marginBottom: "10px" }}>
           <Link
+            to="/signupemail"
+            style={{ color: "#87CEFA", textDecoration: "none" }}
+          >
+            SignUpEmail
+          </Link>
+        </li>
+        <li style={{ marginBottom: "10px" }}>
+          <Link
             to="/cartone"
             style={{ color: "#87CEFA", textDecoration: "none" }}
           >
@@ -75,14 +83,7 @@ const Home = () => {
             CheckoutPayment
           </Link>
         </li>
-        <li style={{ marginBottom: "10px" }}>
-          <Link
-            to="/login"
-            style={{ color: "#87CEFA", textDecoration: "none" }}
-          >
-            Login
-          </Link>
-        </li>
+        
         <li style={{ marginBottom: "10px" }}>
           <Link
             to="/reviews"
@@ -107,31 +108,7 @@ const Home = () => {
             LoginEmail
           </Link>
         </li>
-        <li style={{ marginBottom: "10px" }}>
-          <Link
-            to="/shopone"
-            style={{ color: "#87CEFA", textDecoration: "none" }}
-          >
-            ShopOne
-          </Link>
-        </li>
-  
-        <li style={{ marginBottom: "10px" }}>
-          <Link
-            to="/simple"
-            style={{ color: "#87CEFA", textDecoration: "none" }}
-          >
-            Simple
-          </Link>
-        </li>
-        <li style={{ marginBottom: "10px" }}>
-          <Link
-            to="/simpleone"
-            style={{ color: "#87CEFA", textDecoration: "none" }}
-          >
-            SimpleOne
-          </Link>
-        </li>
+      
       </ul>
     </div>
   );

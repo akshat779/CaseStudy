@@ -9,29 +9,25 @@ import CartOne from "./pages/CartOne";
 import CheckoutAddress from "./pages/CheckoutAddress";
 import CheckoutShipping from "./pages/CheckoutShipping";
 import CheckoutPayment from "./pages/CheckoutPayment";
-import Login from "./pages/Login";
 import Reviews from "./pages/Reviews";
 import ProductPageTwo from "./pages/ProductPageTwo";
 import LoginEmail from "./pages/LoginEmail";
-import Simple from "./pages/Simple";
-import SimpleOne from "./pages/SimpleOne";
+import SignUpEmailPage from "./pages/SignUpEmail";
 const ProjectRoutes = () => {
   let element = useRoutes([
     { path: "/", element: <Home /> },
     { path: "*", element: <NotFound /> },
-    { path: "heroone", element: <HeroOne /> },
-    { path: "shop", element: <Shop /> },
-    { path: "productone", element: <ProductOne /> },
-    { path: "cartone", element: <CartOne /> },
-    { path: "checkoutaddress", element: <CheckoutAddress /> },
-    { path: "checkoutshipping", element: <CheckoutShipping /> },
-    { path: "checkoutpayment", element: <CheckoutPayment /> },
-    { path: "login", element: <Login /> },
-    { path: "reviews", element: <Reviews /> },
-    { path: "productpagetwo", element: <ProductPageTwo /> },
-    { path: "loginemail", element: <LoginEmail /> },
-    { path: "simple", element: <Simple /> },
-    { path: "simpleone", element: <SimpleOne /> },
+    { path: "/heroone", element: <HeroOne /> },
+    { path: "/shop", element: <Shop /> },
+    { path: "/productone", element: <ProductOne /> },
+    { path: "/cartone", element: <CartOne /> },
+    { path: "/checkoutaddress", element: <CheckoutAddress /> },
+    { path: "/checkoutshipping", element: <CheckoutShipping /> },
+    { path: "/checkoutpayment", element: <CheckoutPayment /> },
+    { path: "/reviews", element: <Reviews /> },
+    { path: "/productpagetwo", element: <ProductPageTwo /> },
+    { path: "/loginemail", element: <LoginEmail /> },
+    { path: "/signupemail", element: <SignUpEmailPage /> },
   ]);
   return element;
 };
