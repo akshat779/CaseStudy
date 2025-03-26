@@ -13,7 +13,6 @@ import Login from "./pages/Login";
 import Reviews from "./pages/Reviews";
 import ProductPageTwo from "./pages/ProductPageTwo";
 import LoginEmail from "./pages/LoginEmail";
-import HeroTwo from "./pages/HeroTwo";
 import Simple from "./pages/Simple";
 import SimpleOne from "./pages/SimpleOne";
 const ProjectRoutes = () => {
@@ -31,9 +30,6 @@ const ProjectRoutes = () => {
     { path: "reviews", element: <Reviews /> },
     { path: "productpagetwo", element: <ProductPageTwo /> },
     { path: "loginemail", element: <LoginEmail /> },
-    { path: "herotwo", element: <HeroTwo /> },
-    // { path: "shopone", element: <ShopOne /> },
-    // { path: "footer", element: <Footer /> },
     { path: "simple", element: <Simple /> },
     { path: "simpleone", element: <SimpleOne /> },
   ]);

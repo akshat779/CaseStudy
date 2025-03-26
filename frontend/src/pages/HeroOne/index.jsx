@@ -5,6 +5,7 @@ import HerooneRowOne from "./HerooneRowOne";
 import React from "react";
 import Header from "../../components/Header";
 import FooterPage from "../../components/Footer";
+import { Link } from "react-router-dom";
 export default function HeroOnePage() {
   const [searchBarValue2, setSearchBarValue2] = React.useState("");
   return (
@@ -32,9 +33,9 @@ export default function HeroOnePage() {
               as="p"
               className="mt-3 self-stretch text-center text-[20px] font-normal leading-7 tracking-[-0.40px] !text-text_secondary"
             >
-              A new collection of organic cotton clothing, made for you and the
-              planet.
+              Choose from a wide Array of Products, clothes, accessories and more 
             </Text>
+            <Link to="/shop">
             <Button
               shape="square"
               className="min-w-[194px] !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 p-2 hover:font-bold mt-6"
@@ -42,6 +43,7 @@ export default function HeroOnePage() {
               
               Shop All
             </Button>
+            </Link>
           </div>
         </div>
         <HerooneRowOne />

@@ -4,7 +4,7 @@ import React from "react";
 export default function FooterPage() {
   return (
     <>
-      <footer className="flex w-full items-start justify-center bg-background_primary py-11 md:py-5 mt-10">
+      <footer className="flex w-full items-start justify-center bg-background_primary py-11 md:py-5 ">
         <div className="container-sm mb-[78px] flex-col  justify-center md:px-5">
           {/* <header className="flex w-full items-start justify-between gap-5 px-1 md:flex-col"> */}
           {/* Newsletter Section */}
