@@ -11,7 +11,7 @@ export default function ProductDetails({
       {...props}
       className={`${props.className} flex flex-col items-center justify-center w-full gap-3.5`}
     >
-      <div>
+      <div className="flex flex-col items-center justify-center gap-2.5">
       <div className="h-[264px] w-[264px] bg-gray-400" />
       <div className="flex flex-col items-start gap-0.5 self-stretch">
         <div className="flex flex-wrap justify-between gap-5 self-stretch">
