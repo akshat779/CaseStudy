@@ -14,7 +14,7 @@ const Header = () => {
       <div className="container-md mt-4 flex items-center justify-between gap-5 self-stretch md:flex-row md:px-5">
         <div className="flex flex-row w-[70%] items-center justify-betweem gap-5 md:w-full md:flex-row">
           <ul className="flex flex-wrap items-center gap-8">
-            <Link href="/heroone">
+            <Link to="/heroone">
               <li>
                 <Heading
                   size="headinglg"
@@ -26,7 +26,7 @@ const Header = () => {
               </li>
             </Link>
             <li>
-              <Link href="/shop" >
+              <Link to="/shop" >
                 <Text
                   as="p"
                   className="text-[17px] font-normal tracking-[-0.60px] hover:font-bold"
@@ -97,12 +97,14 @@ const Header = () => {
               0
             </Text>
           </div>
+          <Link to="/loginemail">
           <Text
             as="p"
             className="text-[17px] font-bold text-xl tracking-[-0.60px] hover:font-bold cursor-pointer"
           >
             Login
           </Text>
+          </Link>
         </div>
       </div>
       {/* <div className="h-px w-full self-stretch bg-black-900_7f" /> */}
