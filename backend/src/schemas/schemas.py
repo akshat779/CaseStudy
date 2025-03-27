@@ -105,3 +105,6 @@ class KeycloakToken(BaseModel):
     username: str
     roles: List[str]
 
+class Login(BaseModel):  
+    username:str
+    password:str

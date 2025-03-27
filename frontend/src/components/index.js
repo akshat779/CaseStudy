@@ -7,8 +7,7 @@ import { RatingBar } from "./RatingBar";
 import { SelectBox } from "./SelectBox";
 import { Slider } from "./Slider";
 import { Switch } from "./Switch";
-import { Text } from "./Text";
-export {
+import { Text } from "./Text";export {
   Button,
   CheckBox,
   Heading,
