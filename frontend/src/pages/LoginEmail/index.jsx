@@ -2,34 +2,36 @@ import { Text, Heading, CheckBox, Input, Button } from "../../components";
 import FooterPage from "../../components/Footer";
 import Header from "../../components/Header";
 import React, { useState } from "react";
-import axios from "axios";
+// import axiosUtil from "../../utils/axiosUtil";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import userStore from "../../store/userStore";
 export default function LoginEmailPage() {
   const[usename,setUsername] = useState("");
   const[password,setPassword] = useState("");
-  const navigate = useNavigate();
+  const {login} = userStore();
+  // const navigate = useNavigate();
 
   const handleLogin = async() => {
     try{
-      const response = await axios({
-        method: "post",
-        url: "http://localhost:8000/login/",
-        data: {
-          "username": usename,
-          "password": password
-        },
-        withCredentials: true,
-        headers:{
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
-      if(response){
-        navigate("/heroone");
+        await login(usename,password);
+      // const response = await axiosUtil.post("/login/",{
+      //   "username": usename,
+      //   "password": password
+      // });
+
+      // if(response){
+      //   toast.success("Logged In!");
+      //   const decoded = jwtDecode(response['data']['access_token']);
+      //   console.log(decoded.preferred_username);
+      //   navigate("/dashboard");
       }
-    }
-    catch(err){
-      console.log("No")
+    catch(error){
+      toast.error("Please Try Again!")
+      setUsername("");
+      setPassword("");
+      console.log("No",error);
     }
 
     
