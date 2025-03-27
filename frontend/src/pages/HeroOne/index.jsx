@@ -38,7 +38,7 @@ export default function HeroOnePage() {
             <Link to="/shop">
             <Button
               shape="square"
-              className="min-w-[194px] !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 p-2 hover:font-bold mt-6"
+              className="min-w-[194px] !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 p-2 hover:font-bold mt-6  hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
             >
               
               Shop All

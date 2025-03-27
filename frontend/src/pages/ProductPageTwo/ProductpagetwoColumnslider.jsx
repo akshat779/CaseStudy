@@ -5,9 +5,9 @@ export default function ProductpagetwoColumnslider() {
   const sliderRef = React.useRef(null);
   return (
     <div className="flex w-full flex-col items-start">
-      {" "}
+      
       <div className="mx-auto flex w-[84%] flex-col md:w-full">
-        {" "}
+        
         <Slider
           autoPlay
           autoPlayInterval={2000}
@@ -25,8 +25,8 @@ export default function ProductpagetwoColumnslider() {
           items={[...Array(0)].map(() => (
             <React.Fragment key={Math.random()}></React.Fragment>
           ))}
-        />{" "}
-      </div>{" "}
+        />
+      </div>
     </div>
   );
 }
