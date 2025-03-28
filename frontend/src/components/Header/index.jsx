@@ -4,10 +4,15 @@ import { Img } from "../Img";
 import { Input } from "../Input";
 import { CloseSVG } from "../Input/close";
 import { Text } from "../Text";
+import userStore from "../../store/userStore";
 
 import React from "react";
 
 const Header = () => {
+  const {logout,isAuthenticated} = userStore();
+  const handleLogout = () => {
+    logout();
+  }
   const [searchBarValue2, setSearchBarValue2] = React.useState("");
   return (
     <header className="flex flex-row items-center justify-between gap-4 self-stretch mb-8">
@@ -97,6 +102,17 @@ const Header = () => {
               0
             </Text>
           </div>
+          { isAuthenticated ? 
+           <Text
+           as="p"
+           className="text-[17px] font-bold text-xl tracking-[-0.60px] hover:font-bold cursor-pointer"
+         >
+           <button onClick={handleLogout}>
+           Logout
+           </button>
+         </Text>
+         
+          :
           <Link to="/loginemail">
           <Text
             as="p"
@@ -104,7 +120,9 @@ const Header = () => {
           >
             Login
           </Text>
-          </Link>
+          </Link> 
+         
+      }
         </div>
       </div>
       {/* <div className="h-px w-full self-stretch bg-black-900_7f" /> */}

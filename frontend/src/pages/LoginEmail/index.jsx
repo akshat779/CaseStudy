@@ -5,27 +5,23 @@ import React, { useState } from "react";
 // import axiosUtil from "../../utils/axiosUtil";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import userStore from "../../store/userStore";
 export default function LoginEmailPage() {
-  const[usename,setUsername] = useState("");
+  const[username,setUsername] = useState("");
   const[password,setPassword] = useState("");
   const {login} = userStore();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
+ 
   const handleLogin = async() => {
     try{
-        await login(usename,password);
-      // const response = await axiosUtil.post("/login/",{
-      //   "username": usename,
-      //   "password": password
-      // });
-
-      // if(response){
-      //   toast.success("Logged In!");
-      //   const decoded = jwtDecode(response['data']['access_token']);
-      //   console.log(decoded.preferred_username);
-      //   navigate("/dashboard");
+        const response = await login(username,password);
+        if(response.response_code == 200){
+          navigate("/heroone");
+        }
+        
       }
     catch(error){
       toast.error("Please Try Again!")
@@ -33,10 +29,9 @@ export default function LoginEmailPage() {
       setPassword("");
       console.log("No",error);
     }
-
-    
-    
   }
+
+  
   return (
     <>
       <Header />
@@ -62,7 +57,7 @@ export default function LoginEmailPage() {
                 shape="square"
                 type="email"
                 name="email"
-                value={usename}
+                value={username}
                 placeholder={`Email`}
                 className="!border-[0.5px] px-4 tracking-[-0.30px]"
                 onChange={(e) => setUsername(e.target.value)}
@@ -113,6 +108,7 @@ export default function LoginEmailPage() {
                 Sign Up
             </Link>
               </Button>
+             
           </div>
         </div>
       </div>

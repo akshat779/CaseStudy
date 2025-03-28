@@ -12,10 +12,11 @@ models.Base.metadata.create_all(bind=engine)
 
 origins = [
 
-    "http://localhost/8000/login*",
+    "http://localhost/8000/login/email/",
     "http://localhost:5173/loginemail",
     "http://localhost:8080",
     "http://localhost:5173",
+    "http://localhost:5173/signupemail"
 ]
 
 app = FastAPI()

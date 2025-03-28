@@ -17,11 +17,18 @@ router = APIRouter(
 def getAll(db: Session = Depends(get_db),limit:int = Query(10),offset:int = Query(0)):  
     return User.getAll(limit,offset,db)
 
-
+@router.get("/username/{username}",response_model=schemas.User,dependencies=[Depends(keycloak.has_role("user"))])
+def get_user_by_username(username: str, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.username == username).first()
+    if(user is None):
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
 
 @router.post("/create")
 async def create_user(user_request: schemas.UserCreate,db: Session = Depends(get_db)):
+    print(user_request)
     token = await keycloak.get_keycloak_admin_token()
+
     
     async with httpx.AsyncClient() as client:
         #checking if the user already exists
