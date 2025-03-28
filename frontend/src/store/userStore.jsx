@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 const userStore = create((set) => ({
     user:null,
-    isAuthenticated:false,
+    isAuthenticated: !!Cookies.get("access_token"),
     role:null,
     image:null,
     firstname:null,
@@ -47,7 +47,7 @@ const userStore = create((set) => ({
         Cookies.remove("access_token");
         set(() => {
             console.log("Logged Out");
-            return{user:null,isAuthenticated:false,token:null}
+            return{user:null,isAuthenticated:false,token:null,role:null,image:null,firstname:null}
         })
         toast.success("Logged Out!");
     },
@@ -56,10 +56,34 @@ const userStore = create((set) => ({
         try{
             const response = await axiosUtil.get("/products/");
             console.log(response);
-            // set({products:response.data});
+            set({products:response.data});
+         
         }
         catch(error){
             console.log("No",error);
+        }
+    },
+
+    createTenant: async(username,email,firstname,lastname,password,image) => {
+        try{
+            const response = await axiosUtil.post("/tenant/create",{
+                username:username,
+                email:email,
+                firstname:firstname,
+                lastname:lastname,
+                role:"tenant",
+                password:password,
+                image:null
+            });
+            if(response){
+                toast.success("Tenant Created Successfully!");
+                console.log(response);
+                return {response_code:200,data:response.data}
+            }
+        }
+        catch(error){
+            toast.error("Please Try Again!")
+            return {response_code:400,err:error}
         }
     }
 }))

@@ -20,6 +20,8 @@ const CheckBox = React.forwardRef(
     const handleChange = (e) => {
       if (onChange) onChange(e?.target?.checked);
     };
+
+    console.log(name)
     return (
       <>
         
@@ -30,7 +32,7 @@ const CheckBox = React.forwardRef(
           <input
             className={`${(size && sizes[size]) || ""}${
               (variant && variants[variant]) || ""
-            }`}
+            } mr-2`}
             ref={ref}
             type="checkbox"
             name={name}

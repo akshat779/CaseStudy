@@ -5,14 +5,20 @@ import { Input } from "../Input";
 import { CloseSVG } from "../Input/close";
 import { Text } from "../Text";
 import userStore from "../../store/userStore";
+import productStore from "../../store/productStore";
+import { FaRegUserCircle } from "react-icons/fa";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 const Header = () => {
-  const {logout,isAuthenticated} = userStore();
+  const { logout, isAuthenticated, image,role } = userStore();
+ 
   const handleLogout = () => {
     logout();
-  }
+  };
+  useEffect(()=> {
+      },[])
+
   const [searchBarValue2, setSearchBarValue2] = React.useState("");
   return (
     <header className="flex flex-row items-center justify-between gap-4 self-stretch mb-8">
@@ -31,7 +37,7 @@ const Header = () => {
               </li>
             </Link>
             <li>
-              <Link to="/shop" >
+              <Link to="/shop">
                 <Text
                   as="p"
                   className="text-[17px] font-normal tracking-[-0.60px] hover:font-bold"
@@ -40,25 +46,26 @@ const Header = () => {
                 </Text>
               </Link>
             </li>
+
             <li>
-              <a href="#" className="cursor-pointer">
+              {role == "admin" ? <a href="#" className="cursor-pointer">
                 <Text
                   as="p"
                   className="text-[17px] font-normal tracking-[-0.60px] hover:font-bold"
                 >
-                  Stories
+                  <Link to="/tenantcreate">
+                    Create Tenant
+                  </Link>
                 </Text>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="cursor-pointer">
+              </a> : null}
+              {role == "tenant" ? <a href="#" className="cursor-pointer">
                 <Text
                   as="p"
                   className="text-[17px] font-normal tracking-[-0.60px] hover:font-bold"
                 >
-                  About
+                  Create Product
                 </Text>
-              </a>
+              </a> : null}
             </li>
           </ul>
           <Input
@@ -89,7 +96,7 @@ const Header = () => {
             className="flex-grow gap-3 self-end font-inter tracking-[-0.60px] text-text_secondary p-2"
           />
         </div>
-        <div className="flex w-[10%] self-end gap-3">
+        <div className="flex w-[12%] items-center self-end gap-5">
           <div className="flex w-full justify-center items-center gap-1.5">
             <a href="#">
               <Img
@@ -102,27 +109,30 @@ const Header = () => {
               0
             </Text>
           </div>
-          { isAuthenticated ? 
-           <Text
-           as="p"
-           className="text-[17px] font-bold text-xl tracking-[-0.60px] hover:font-bold cursor-pointer"
-         >
-           <button onClick={handleLogout}>
-           Logout
-           </button>
-         </Text>
-         
-          :
-          <Link to="/loginemail">
-          <Text
-            as="p"
-            className="text-[17px] font-bold text-xl tracking-[-0.60px] hover:font-bold cursor-pointer"
-          >
-            Login
-          </Text>
-          </Link> 
-         
-      }
+          {isAuthenticated ? (
+            <Text
+              as="p"
+              className="text-[17px] font-bold text-xl tracking-[-0.60px] hover:font-bold cursor-pointer"
+            >
+              <button onClick={handleLogout}>Logout</button>
+            </Text>
+          ) : (
+            <Link to="/loginemail">
+              <Text
+                as="p"
+                className="text-[17px] font-bold text-xl tracking-[-0.60px] hover:font-bold cursor-pointer"
+              >
+                Login
+              </Text>
+            </Link>
+          )}
+          {isAuthenticated ? (
+            image ? (
+              <img src={image} alt="User" />
+            ) : (
+              <FaRegUserCircle className="text-6xl text-black rounded-6xl ml-2" />
+            )
+          ) : null}
         </div>
       </div>
       {/* <div className="h-px w-full self-stretch bg-black-900_7f" /> */}

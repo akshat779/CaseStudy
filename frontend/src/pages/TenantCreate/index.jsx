@@ -1,37 +1,50 @@
+
 import { Text, Heading, CheckBox, Input, Button } from "../../components";
 import FooterPage from "../../components/Footer";
 import Header from "../../components/Header";
-import React, { useState } from "react";
-// import axiosUtil from "../../utils/axiosUtil";
-import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
+import React from "react";
 import userStore from "../../store/userStore";
-export default function LoginEmailPage() {
-  const[username,setUsername] = useState("");
-  const[password,setPassword] = useState("");
-  const {login} = userStore();
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+export default function TenantCreate() {
+  // WIP ADD IMAGE INPUT
+
+  // http://localhost:8000/user/create
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { createTenant } = userStore();
+  const handleSignUp = async () => {
+    try {
+     
+        const response = await createTenant(
+            username,
+            email,
+            firstName,
+            lastName,
+            password,
+            null
+        );
 
- 
-  const handleLogin = async() => {
-    try{
-        const response = await login(username,password);
-        if(response.response_code == 200){
-          navigate("/heroone");
-        }
-        
+      if (response) {
+        toast.success("Account Created!");
+        navigate("/loginemail");
       }
-    catch(error){
-      toast.error("Please Try Again!")
+    } catch (error) {
+      toast.error("Please Try Again!");
       setUsername("");
+      setEmail("");
+      setFirstName("");
+      setLastName("");
       setPassword("");
-      console.log("No",error);
+      console.log("No", error);
     }
-  }
+  };
 
-  
   return (
     <>
       <Header />
@@ -43,33 +56,60 @@ export default function LoginEmailPage() {
             as="h1"
             className="ml-1 text-[22px] font-semibold tracking-[-0.55px] !text-colors-base-color_6 md:ml-0"
           >
-            Welcome Back
+            Welcome Onboard
           </Heading>
           <Heading
             as="h2"
             className="ml-1 text-[16px] font-medium tracking-[-0.20px] !text-colors-grey-grey_2 md:ml-0"
           >
-            Login with email
+            Create a New Tenant Account
           </Heading>
           <div className="mb-[22px] ml-1 flex flex-col gap-4 self-stretch md:ml-0">
             <div className="flex flex-col gap-4">
               <Input
                 shape="square"
+                type="text"
+                name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder={`Username`}
+                className="!border-[0.5px] px-4 tracking-[-0.30px]"
+              />
+              <Input
+                shape="square"
                 type="email"
                 name="email"
-                value={username}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder={`Email`}
                 className="!border-[0.5px] px-4 tracking-[-0.30px]"
-                onChange={(e) => setUsername(e.target.value)}
+              />
+              <Input
+                shape="square"
+                type="text"
+                name="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder={`First Name`}
+                className="!border-[0.5px] px-4 tracking-[-0.30px]"
+              />
+              <Input
+                shape="square"
+                type="text"
+                name="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder={`Last Name`}
+                className="!border-[0.5px] px-4 tracking-[-0.30px]"
               />
               <Input
                 shape="square"
                 type="password"
                 name="password"
                 value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder={`Password`}
                 className="!border-[0.5px] px-4 tracking-[-0.30px]"
-                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="flex items-center justify-between gap-5 my-4">
@@ -80,35 +120,16 @@ export default function LoginEmailPage() {
                 id="rememberme"
                 className="gap-2.5 text-[14px] tracking-[-0.30px] text-text_secondary "
               />
-              <a href="#">
-                <Heading
-                  size="headingxs"
-                  as="h3"
-                  className="text-[14px] font-bold tracking-[-0.30px] !text-text_secondary"
-                >
-                  Forgot Password?
-                </Heading>
-              </a>
             </div>
           </div>
           <div className="flex flex-col gap-4 self-stretch">
             <Button
               shape="square"
-              onClick={handleLogin}
+              onClick={handleSignUp}
               className="min-w-[30%] p-2 !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
             >
-              Login
+              Create Tenant Account
             </Button>
-
-              <Button
-                shape="square"
-                className="min-w-[30%] p-2 !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
-              >
-            <Link to="/signupemail">
-                New User? Sign Up
-            </Link>
-              </Button>
-             
           </div>
         </div>
       </div>

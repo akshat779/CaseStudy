@@ -12,6 +12,7 @@ import CheckoutPayment from "./pages/CheckoutPayment";
 import Reviews from "./pages/Reviews";
 import ProductPageTwo from "./pages/ProductPageTwo";
 import LoginEmail from "./pages/LoginEmail";
+import TenantCreate from "./pages/TenantCreate";
 import SignUpEmailPage from "./pages/SignUpEmail";
 const ProjectRoutes = () => {
   let element = useRoutes([
@@ -28,6 +29,7 @@ const ProjectRoutes = () => {
     { path: "/productpagetwo", element: <ProductPageTwo /> },
     { path: "/loginemail", element: <LoginEmail /> },
     { path: "/signupemail", element: <SignUpEmailPage /> },
+    { path: "/tenantcreate", element: <TenantCreate /> },
   ]);
   return element;
 };

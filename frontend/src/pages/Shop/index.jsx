@@ -4,72 +4,26 @@ import Header from "../../components/Header";
 import ProductDetails from "../../components/ProductDetails";
 import React, { Suspense,useEffect } from "react";
 import FooterPage from "../../components/Footer";
-import userStore from "../../store/userStore";
-const data = [
-  {
-    productTitle: "Men’s Winter Jacket",
-    productSize: "M",
-    productPrice: "$99",
-  },
-  {
-    productTitle: "Men’s Winter Jacket",
-    productSize: "M",
-    productPrice: "$99",
-  },
-  {
-    productTitle: "Men’s Winter Jacket",
-    productSize: "M",
-    productPrice: "$99",
-  },
-  {
-    productTitle: "Men’s Winter Jacket",
-    productSize: "M",
-    productPrice: "$99",
-  },
-  {
-    productTitle: "Men’s Winter Jacket",
-    productSize: "M",
-    productPrice: "$99",
-  },
-  {
-    productTitle: "Men’s Winter Jacket",
-    productSize: "M",
-    productPrice: "$99",
-  },
-];
+import productStore from "../../store/productStore";
 
-const categories = [
-  {
-    name: "sweatshirtshood",
-    label: "Sweatshirts & Hoodies",
-  },
-  {
-    name: "sweaters",
-    label: "Sweaters",
-  },
-  {
-    name: "shirts",
-    label: "Shirts",
-  },
-  {
-    name: "tshirts",
-    label: "T-Shirts",
-  },
-  {
-    name: "pantsjeans",
-    label: "Pants & Jeans",
-  },
-  {
-    name: "jackets",
-    label: "Jackets",
-  },
-];
+
 export default function ShopPage() {
-  const {getProducts} = userStore();
+  const {productsList,fetchProducts} = productStore();
+  const [categories, setCategories] = React.useState([]);
+
   useEffect(() => {
-    getProducts();
-  }
-  ,[]);
+    fetchProducts();
+    
+  },[]);
+
+  useEffect(() => {
+    const categories = productsList.map((product) => product.category);
+    const uniqueCategories = [...new Set(categories)];
+    const finalArray = uniqueCategories.map((category) => ({name:category}))
+    setCategories([...finalArray]);
+  },[productsList])
+
+  
   return (
     <>
       <Header className="self-stretch" />
@@ -130,11 +84,12 @@ export default function ShopPage() {
                     {categories.map((category, index) => (
                       <CheckBox
                         name={category.name}
-                        label={category.label}
+                        label={category.name}
                         id={category.name}
                         key={"category" + index}
                         className="gap-3 pr-[34px] text-[13px] tracking-[-0.40px] text-text_primary sm:pr-5"
                       />
+                      // console.log(category)
                     ))}
                   </div>
                   {/* categories */}
@@ -148,7 +103,7 @@ export default function ShopPage() {
               <div className="mt-1 flex flex-1 flex-col items-center gap-[42px] self-center md:self-stretch">
                 <div className="ml-11 grid grid-cols-2 gap-8 self-stretch md:ml-0 md:grid-cols-2 sm:grid-cols-1">
                   <Suspense fallback={<div>Loading feed...</div>}>
-                    {data.map((d, index) => (
+                    {productsList.map((d, index) => (
                       <ProductDetails {...d} key={"productgrid" + index} />
                     ))}
                   </Suspense>
