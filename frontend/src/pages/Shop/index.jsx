@@ -2,8 +2,9 @@ import { Helmet } from "react-helmet";
 import { Button, Heading, CheckBox, Text, Img } from "../../components";
 import Header from "../../components/Header";
 import ProductDetails from "../../components/ProductDetails";
-import React, { Suspense } from "react";
+import React, { Suspense,useEffect } from "react";
 import FooterPage from "../../components/Footer";
+import userStore from "../../store/userStore";
 const data = [
   {
     productTitle: "Men’s Winter Jacket",
@@ -64,6 +65,11 @@ const categories = [
   },
 ];
 export default function ShopPage() {
+  const {getProducts} = userStore();
+  useEffect(() => {
+    getProducts();
+  }
+  ,[]);
   return (
     <>
       <Header className="self-stretch" />

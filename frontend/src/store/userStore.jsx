@@ -14,6 +14,7 @@ const userStore = create((set) => ({
     image:null,
     firstname:null,
     users:[],
+    products:[],
     login: async(username,password) => {
         try{
             const response = await axiosUtil.post("/login/",{
@@ -49,6 +50,17 @@ const userStore = create((set) => ({
             return{user:null,isAuthenticated:false,token:null}
         })
         toast.success("Logged Out!");
+    },
+
+    getProducts: async() => {
+        try{
+            const response = await axiosUtil.get("/products/");
+            console.log(response);
+            // set({products:response.data});
+        }
+        catch(error){
+            console.log("No",error);
+        }
     }
 }))
 
