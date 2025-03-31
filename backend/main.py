@@ -14,6 +14,7 @@ origins = [
 
     "http://localhost/8000/login/email/",
     "http://localhost:5173/loginemail",
+    "http://localhost:5173/createtenant"
     "http://localhost:8080",
     "http://localhost:5173",
     "http://localhost:5173/signupemail"

@@ -11,12 +11,13 @@ import { FaRegUserCircle } from "react-icons/fa";
 import React, { useEffect } from "react";
 
 const Header = () => {
-  const { logout, isAuthenticated, image,role } = userStore();
+  const { logout, isAuthenticated,getCurrentUser, image,role } = userStore();
  
   const handleLogout = () => {
     logout();
   };
   useEffect(()=> {
+    getCurrentUser();
       },[])
 
   const [searchBarValue2, setSearchBarValue2] = React.useState("");
@@ -53,7 +54,7 @@ const Header = () => {
                   as="p"
                   className="text-[17px] font-normal tracking-[-0.60px] hover:font-bold"
                 >
-                  <Link to="/tenantcreate">
+                  <Link to="/createtenant">
                     Create Tenant
                   </Link>
                 </Text>

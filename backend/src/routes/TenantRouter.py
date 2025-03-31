@@ -17,9 +17,10 @@ router = APIRouter(
 def get_all_tenants(db:Session = Depends(get_db)):
     return Tenant.get_all_tenants(db)
 
-
+# ,dependencies=[Depends(keycloak.has_role("admin"))]
 @router.post("/create",dependencies=[Depends(keycloak.has_role("admin"))])
 async def create_tenant(tenant_request: schemas.UserCreate,db: Session = Depends(get_db)):
+    print(tenant_request)
     token = await keycloak.get_keycloak_admin_token()
     
     async with httpx.AsyncClient() as client:

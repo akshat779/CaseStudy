@@ -7,7 +7,7 @@ import axiosUtil from "../../utils/axiosUtil";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-export default function SignUpEmailPage() {
+export default function CreateAdmin() {
   // WIP ADD IMAGE INPUT
 
   // http://localhost:8000/user/create
@@ -16,6 +16,7 @@ export default function SignUpEmailPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
+  const [image, setImage] = useState("");
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
@@ -76,13 +77,13 @@ export default function SignUpEmailPage() {
             as="h1"
             className="ml-1 text-[22px] font-semibold tracking-[-0.55px] !text-colors-base-color_6 md:ml-0"
           >
-            Welcome Onboard
+            Welcome [Admin] AdminName
           </Heading>
           <Heading
             as="h2"
             className="ml-1 text-[16px] font-medium tracking-[-0.20px] !text-colors-grey-grey_2 md:ml-0"
           >
-            Create a New Account
+            Create a New Admin Account
           </Heading>
           <div className="mb-[22px] ml-1 flex flex-col gap-4 self-stretch md:ml-0">
             <div className="flex flex-col gap-4">
@@ -131,16 +132,24 @@ export default function SignUpEmailPage() {
                 placeholder={`Password`}
                 className="!border-[0.5px] px-4 tracking-[-0.30px]"
               />
+              <label
+                htmlFor="fileName"
+                className="flex justify-center items-center !border-[4px] rounded-xl h-[80px] text-center border-gray-400 border-dashed  tracking-[-0.30px]"
+              >
+                <input
+                  id="fileName"
+                  type="file"
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  placeholder={`Quantity`}
+                  className="hidden"
+                />
+                <span className="text-lg font-medium text-gray-600">
+                  Click and drag to upload an image
+                </span>
+              </label>
             </div>
-            <div className="flex items-center justify-between gap-5 my-4">
-              <CheckBox
-                size="sm"
-                name="rememberme"
-                label="Remember me"
-                id="rememberme"
-                className="gap-2.5 text-[14px] tracking-[-0.30px] text-text_secondary "
-              />
-            </div>
+            
           </div>
           <div className="flex flex-col gap-4 self-stretch">
             <Button

@@ -1,13 +1,18 @@
 import { Helmet } from "react-helmet";
 import { Button, Text, Heading, Img, Input } from "../../components";
-import { CloseSVG } from "../../components/Input/close";
+import userStore from "../../store/userStore";
 import HerooneRowOne from "./HerooneRowOne";
-import React from "react";
+import React,{useEffect} from "react";
 import Header from "../../components/Header";
 import FooterPage from "../../components/Footer";
 import { Link } from "react-router-dom";
 export default function HeroOnePage() {
-  const [searchBarValue2, setSearchBarValue2] = React.useState("");
+  // const [searchBarValue2, setSearchBarValue2] = React.useState("");
+  const {user,getCurrentUser,role} = userStore();
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+  console.log(user,role);
   return (
     <>
       <Helmet>

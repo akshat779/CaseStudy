@@ -3,45 +3,52 @@ import { Text, Heading, CheckBox, Input, Button } from "../../components";
 import FooterPage from "../../components/Footer";
 import Header from "../../components/Header";
 import React from "react";
+// import use from "../../store/userStore";
 import userStore from "../../store/userStore";
+import useTenantStore from "../../store/tenantStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-export default function TenantCreate() {
-  // WIP ADD IMAGE INPUT
 
-  // http://localhost:8000/user/create
+export default function CreateTenant() {
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
+  const [image, setImage] = useState("");
   const navigate = useNavigate();
-  const { createTenant } = userStore();
+  const {firstname} = userStore();
+
+  
+
+  const { createTenant } = useTenantStore();
   const handleSignUp = async () => {
     try {
-     
         const response = await createTenant(
             username,
             email,
             firstName,
             lastName,
             password,
-            null
+            image,
         );
 
       if (response) {
-        toast.success("Account Created!");
-        navigate("/loginemail");
+        navigate("/heroone");
       }
     } catch (error) {
       toast.error("Please Try Again!");
+      console.log("No", error);
+    }
+    finally{
       setUsername("");
       setEmail("");
       setFirstName("");
       setLastName("");
       setPassword("");
-      console.log("No", error);
+     
     }
   };
 
@@ -56,7 +63,7 @@ export default function TenantCreate() {
             as="h1"
             className="ml-1 text-[22px] font-semibold tracking-[-0.55px] !text-colors-base-color_6 md:ml-0"
           >
-            Welcome Onboard
+            Welcome {firstname} 👋
           </Heading>
           <Heading
             as="h2"
@@ -111,16 +118,24 @@ export default function TenantCreate() {
                 placeholder={`Password`}
                 className="!border-[0.5px] px-4 tracking-[-0.30px]"
               />
+              <label
+                htmlFor="fileName"
+                className="flex justify-center items-center !border-[4px] rounded-xl h-[80px] text-center border-gray-400 border-dashed  tracking-[-0.30px]"
+              >
+                <input
+                  id="fileName"
+                  type="file"
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  placeholder={`Quantity`}
+                  className="hidden"
+                />
+                <span className="text-lg font-medium text-gray-600">
+                  Click and drag to upload an image
+                </span>
+              </label>
             </div>
-            <div className="flex items-center justify-between gap-5 my-4">
-              <CheckBox
-                size="sm"
-                name="rememberme"
-                label="Remember me"
-                id="rememberme"
-                className="gap-2.5 text-[14px] tracking-[-0.30px] text-text_secondary "
-              />
-            </div>
+            
           </div>
           <div className="flex flex-col gap-4 self-stretch">
             <Button

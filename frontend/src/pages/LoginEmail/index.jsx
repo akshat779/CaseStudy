@@ -11,8 +11,10 @@ import userStore from "../../store/userStore";
 export default function LoginEmailPage() {
   const[username,setUsername] = useState("");
   const[password,setPassword] = useState("");
-  const {login} = userStore();
+  const {login,role} = userStore();
   const navigate = useNavigate();
+
+  console.log("from login",role)
 
  
   const handleLogin = async() => {
@@ -43,7 +45,7 @@ export default function LoginEmailPage() {
             as="h1"
             className="ml-1 text-[22px] font-semibold tracking-[-0.55px] !text-colors-base-color_6 md:ml-0"
           >
-            Welcome Back
+            Welcome Back 
           </Heading>
           <Heading
             as="h2"
@@ -99,7 +101,8 @@ export default function LoginEmailPage() {
             >
               Login
             </Button>
-
+            {
+              role == "user" ?
               <Button
                 shape="square"
                 className="min-w-[30%] p-2 !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
@@ -108,7 +111,8 @@ export default function LoginEmailPage() {
                 New User? Sign Up
             </Link>
               </Button>
-             
+              :null
+            }
           </div>
         </div>
       </div>

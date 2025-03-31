@@ -19,7 +19,7 @@ def login(request:schemas.Login,response:Response):
     payload = {
         "grant_type":   "password",
         "client_id":    "CaseStudyEcommerce",
-        "client_secret":"g8djnLgHw3kldLnAIPY2PftLjpL9XMb0",
+        "client_secret":"SIDOI9LOoLymI0kzBdT6wHYjqsTiUEOL",
         "scope":        "openid",
         "username":     request.username,
         "password":     request.password
