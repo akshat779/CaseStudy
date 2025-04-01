@@ -134,3 +134,13 @@ def create_order(db: Session = Depends(get_db), current_user: models.User = Depe
 def get_all_orders(db: Session = Depends(get_db), current_user: models.User = Depends(keycloak.get_current_user),limit:int = Query(10),offset:int =  Query(0)):
     user_id = db.query(models.User).filter(models.User.username == current_user.username).first().id
     return User.get_all_orders(user_id, db,limit,offset)
+
+@router.delete("/order-items/{id}", response_model=str)
+def delete_order_item(id: int, db: Session = Depends(get_db), current_user: models.User = Depends(keycloak.get_current_user)):
+    user_id = db.query(models.User).filter(models.User.username == current_user.username).first().id
+    return User.delete_order_item(user_id, id, db)
+
+@router.delete("/orderitems",response_model=str)
+def delete_order_items(db: Session = Depends(get_db), current_user: models.User = Depends(keycloak.get_current_user)):
+    user_id = db.query(models.User).filter(models.User.username == current_user.username).first().id
+    return User.delete_order_items(user_id, db)

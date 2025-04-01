@@ -1,9 +1,11 @@
 import { Button, Text, SelectBox, Img, Heading } from "../../components";
 import Header from "../../components/Header";
 import productStore from "../../store/productStore";
+import useCartStore from "../../store/cartStore";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 const dropDownOptions = [
   { label: "S", value: "option1" },
   { label: "M", value: "option2" },
@@ -12,8 +14,10 @@ const dropDownOptions = [
 ];
 export default function ProductComponent() {
   const [quantity, setQuantity] = React.useState(1);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const { id } = useParams();
   const { fetchProduct, currentProduct} = productStore();
+  const { addToCart } = useCartStore();
   console.log(id);
   useEffect(() => {
     fetchProduct(id);
@@ -21,6 +25,30 @@ export default function ProductComponent() {
 
   const {name,description,price,category,image} = currentProduct;
   console.log(image)
+
+  const handleAddToCart = async () => {
+    if (quantity <= 0) {
+      toast.error("Please select a valid quantity");
+      return;
+    }
+    
+    setIsAddingToCart(true);
+    
+    try {
+      const result = await addToCart(id, quantity);
+      
+      if (result.success) {
+        toast.success(`Added ${quantity} ${name} to cart!`);
+      } else {
+        toast.error(result.error || "Failed to add to cart");
+      }
+    } catch (error) {
+      toast.error("Error adding to cart. Please try again.");
+      console.error("Add to cart error:", error);
+    } finally {
+      setIsAddingToCart(false);
+    }
+  };
 
   return (
     <>
@@ -64,7 +92,7 @@ export default function ProductComponent() {
                     onClick={(event) => {
                       event.stopPropagation();
                       setQuantity((quantity) =>
-                        quantity < 1 ? 0 : quantity - 1
+                        quantity <= 1 ? 1 : quantity - 1
                       );
                     }}
                     className="flex cursor-pointer flex-col"
@@ -86,7 +114,7 @@ export default function ProductComponent() {
                     onClick={(event) => {
                       event.stopPropagation();
                       setQuantity((quantity) =>
-                        quantity >= 5 ? 1 : quantity + 1
+                        quantity >= 5 ? 5 : quantity + 1
                       );
                     }}
                     className="flex cursor-pointer flex-col"
@@ -126,9 +154,11 @@ export default function ProductComponent() {
                 <Button
                   variant="fill"
                   shape="square"
-                  className="min-w-[198px] border-[0.5px] border-primary-0 px-8 py-2 font-semibold tracking-[-0.40px] sm:px-5  hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f" 
+                  onClick={handleAddToCart}
+                  disabled={isAddingToCart}
+                  className={`min-w-[198px] border-[0.5px] border-primary-0 px-8 py-2 font-semibold tracking-[-0.40px] sm:px-5 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f ${isAddingToCart ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  Add to Cart - ${price}
+                  {isAddingToCart ? "Adding..." : `Add to Cart - $${price}`}
                 </Button>
                 {/* Add to cart Button */}
                 {/* buy now button */}
@@ -143,14 +173,14 @@ export default function ProductComponent() {
                  {/* buy now button */}
               </div>
                {/* Add to cart and dropdown buttons */}
-            </div>
+            
              {/* placeholder */}
              {image ?  (<img className="relative ml-[-70px]  h-[350px] w-[350px] bg-gray-400 bg-contain" src={image}/>) : (<div className="relative ml-[-70px]  h-[350px] w-[350px] bg-gray-400" />)}
              
               {/* placeholder */}
           </div>
         </div>
-      
+      </div>
     </>
   );
 }

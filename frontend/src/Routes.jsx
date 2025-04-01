@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useRoutes } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -16,6 +15,7 @@ import CreateTenant from "./pages/CreateTenant";
 import CreateUser from "./pages/CreateUser";
 import CreateProduct from "./pages/CreateProduct";
 import CreateAdmin from "./pages/CreateAdmin";
+import OrderHistory from "./pages/OrderHistory";
 import ProtectedRoute from "./utils/protectedRoute";
 import userStore from "./store/userStore";
 const ProjectRoutes = () => {
@@ -32,6 +32,14 @@ const ProjectRoutes = () => {
         <CartOne />
       </ ProtectedRoute >
       )
+    },
+    { 
+      path: "/orders", 
+      element: (
+        <ProtectedRoute allowedRoles={["user", "tenant"]}>
+          <OrderHistory />
+        </ProtectedRoute>
+      ) 
     },
     { path: "/checkoutaddress", element: <CheckoutAddress /> },
     { path: "/checkoutshipping", element: <CheckoutShipping /> },

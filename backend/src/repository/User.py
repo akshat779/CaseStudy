@@ -182,11 +182,14 @@ def update_order_item(user_id: int, id: int, request: schemas.OrderItemCreate, d
     product = db.query(models.Product).filter(models.Product.id == request.product_id).first()
     if not product or product.quantity < request.quantity:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Insufficient product quantity")
+    
+    unit_price = product.price
+    total_price = unit_price * request.quantity
 
     order_item.product_id = request.product_id
     order_item.quantity = request.quantity
-    order_item.unit_price = request.unit_price
-    order_item.total_price = request.total_price
+    order_item.unit_price = unit_price
+    order_item.total_price = total_price
     db.commit()
     db.refresh(order_item)
     return order_item
@@ -198,6 +201,15 @@ def delete_order_item(user_id: int, id: int, db: Session):
     db.delete(order_item)
     db.commit()
     return "Order item deleted"
+
+def delete_order_items(user_id: int, db: Session):
+    order_items = db.query(models.OrderItem).filter(models.OrderItem.user_id == user_id).all()
+    if not order_items:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No order items found for this user")
+    for item in order_items:
+        db.delete(item)
+    db.commit()
+    return "Order items deleted"
 
 # def create_order(user_id: int, db: Session):
 #     order_items = db.query(models.OrderItem).filter(models.OrderItem.user_id == user_id).all()

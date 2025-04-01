@@ -6,20 +6,60 @@ import { CloseSVG } from "../Input/close";
 import { Text } from "../Text";
 import userStore from "../../store/userStore";
 import productStore from "../../store/productStore";
+import useCartStore from "../../store/cartStore";
 import { FaRegUserCircle } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const Header = () => {
   const { logout, isAuthenticated, getCurrentUser, image, role } = userStore();
   const { setSearchQuery } = productStore();
+  const { cartCount, fetchCartItems } = useCartStore();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
  
   const handleLogout = () => {
     logout();
   };
-  useEffect(()=> {
+  
+  useEffect(() => {
     getCurrentUser();
-  },[])
+  }, []);
+  
+  // Load cart items when authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchCartItems();
+    }
+  }, [isAuthenticated, fetchCartItems]);
+  
+  // Refetch cart items when tab becomes visible again
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && isAuthenticated) {
+        fetchCartItems();
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    // Also refetch on focus
+    window.addEventListener('focus', () => {
+      if (isAuthenticated) {
+        fetchCartItems();
+      }
+    });
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', () => {
+        if (isAuthenticated) {
+          fetchCartItems();
+        }
+      });
+    };
+  }, [isAuthenticated, fetchCartItems]);
 
   const [searchBarValue2, setSearchBarValue2] = React.useState("");
 
@@ -28,6 +68,24 @@ const Header = () => {
       setSearchQuery(searchBarValue2);
       e.preventDefault();
     }
+  };
+  
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
   };
 
   return (
@@ -111,17 +169,17 @@ const Header = () => {
             className="flex-grow gap-3 self-end font-inter tracking-[-0.60px] text-text_secondary p-2"
           />
         </div>
-        <div className="flex w-[12%] items-center self-end gap-5">
+        <div className="flex w-[15%] items-center self-end gap-5">
           <div className="flex w-full justify-center items-center gap-1.5">
-            <Link to="/cartone">
+            <Link to="/cartone" onClick={() => isAuthenticated && fetchCartItems()}>
               <Img
                 src="/images/img_bag_text_primary.svg"
                 alt="Bag"
-                className="h-[20px]"
+                className="h-[20px] w-[20px]"
               />
             </Link>
             <Text as="p" className="text-[17px] font-normal tracking-[-0.60px]">
-              0
+              {cartCount}
             </Text>
           </div>
           {isAuthenticated ? (
@@ -142,11 +200,40 @@ const Header = () => {
             </Link>
           )}
           {isAuthenticated ? (
-            image ? (
-              <img src={image} alt="User" />
-            ) : (
-              <FaRegUserCircle className="text-6xl text-black rounded-6xl ml-2" />
-            )
+            <div className="relative" ref={dropdownRef}>
+              <div 
+                className="flex items-center cursor-pointer" 
+                onClick={toggleDropdown}
+              >
+                {image ? (
+                  <img src={image} alt="User" className="w-2 h-2 rounded-full" />
+                ) : (
+                  <FaRegUserCircle className="text-xl text-black rounded-full" />
+                )}
+                <IoIosArrowDown className="ml-1 text-sm" />
+              </div>
+              
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20 py-1">
+                  <Link 
+                    to="/orders" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    My Orders
+                  </Link>
+                  <div 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => {
+                      handleLogout();
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    Logout
+                  </div>
+                </div>
+              )}
+            </div>
           ) : null}
         </div>
       </div>
