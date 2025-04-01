@@ -8,32 +8,33 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userStore from "../../store/userStore";
 import toast from "react-hot-toast";
+import useTenantStore from "../../store/tenantStore";
 export default function CreateProduct() {
-
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState();
-  const [quantity, setQuantity] = useState();
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState("");
   const navigate = useNavigate();
   const { firstname } = userStore();
+  const { createProduct } = useTenantStore();
 
-  const handleSignUp = async () => {
+  const handleCreateProduct = async () => {
     try {
-
-      const response = await axiosUtil.post("/user/create", {
-        name: name,
-        category: category,
-        description: description,
-        price: price,
-        quantity: quantity,
-        image: "",
-      });
+     
+      const response = await createProduct(
+        name,
+        category,
+        description,
+        price,
+        quantity,
+        image,
+      );
 
       if (response) {
-        toast.success("Account Created!");
-        navigate("/loginemail");
+        console.log("Yes created", response);
+        navigate("/heroone");
       }
     } catch (error) {
       toast.error("Please Try Again!");
@@ -43,8 +44,9 @@ export default function CreateProduct() {
       setName("");
       setCategory("");
       setDescription("");
-      setPrice();
-      setQuantity();
+      setPrice("");
+      setQuantity("");
+      setImage("");
     }
   };
 
@@ -124,7 +126,7 @@ export default function CreateProduct() {
                   id="fileName"
                   type="file"
                   value={image}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  onChange={(e) => setImage(e.target.value)}
                   placeholder={`Quantity`}
                   className="hidden"
                 />
@@ -137,7 +139,7 @@ export default function CreateProduct() {
           <div className="flex flex-col gap-4 self-stretch">
             <Button
               shape="square"
-              onClick={handleSignUp}
+              onClick={handleCreateProduct}
               className="min-w-[30%] p-2 !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
             >
               Create Product

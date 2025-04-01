@@ -31,7 +31,7 @@ const ProjectRoutes = () => {
     { path: "/checkoutshipping", element: <CheckoutShipping /> },
     { path: "/checkoutpayment", element: <CheckoutPayment /> },
     { path: "/reviews", element: <Reviews /> },
-    { path: "/productpagetwo", element: <ProductPageTwo /> },
+    { path: "/productpagetwo/:id", element: <ProductPageTwo /> },
     { path: "/loginemail", element: isAuthenticated ? <HeroOne /> :<LoginEmail /> },
     { path: "/createuser", element: <CreateUser /> },
     {

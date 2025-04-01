@@ -5,16 +5,18 @@ import ProductDetails from "../../components/ProductDetails";
 import React, { Suspense,useEffect } from "react";
 import FooterPage from "../../components/Footer";
 import productStore from "../../store/productStore";
-
+import { Link } from "react-router-dom";
 
 export default function ShopPage() {
-  const {productsList,fetchProducts} = productStore();
+  const {productsList=[], fetchProducts, loadMoreProducts, hasMoreProducts, searchQuery} = productStore();
   const [categories, setCategories] = React.useState([]);
+  const [selectedCategories, setSelectedCategories] = React.useState([]);
+  const [filteredProducts, setFilteredProducts] = React.useState([]);
+  const noOfProducts = filteredProducts.length || productsList.length;
 
   useEffect(() => {
     fetchProducts();
-    
-  },[]);
+  },[fetchProducts]);
 
   useEffect(() => {
     const categories = productsList.map((product) => product.category);
@@ -23,7 +25,48 @@ export default function ShopPage() {
     setCategories([...finalArray]);
   },[productsList])
 
-  
+  useEffect(() => {
+    let filtered = [...productsList];
+    
+    // Filter by categories if any are selected
+    if (selectedCategories.length > 0) {
+      filtered = filtered.filter(product => 
+        selectedCategories.includes(product.category)
+      );
+    }
+    
+    // Filter by search query if present
+    if (searchQuery && searchQuery.trim() !== '') {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(product => 
+        product.name.toLowerCase().includes(query) || 
+        product.description.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query)
+      );
+    }
+    
+    setFilteredProducts(filtered);
+  }, [selectedCategories, productsList, searchQuery]);
+
+  const handleCategoryChange = (categoryName) => {
+    setSelectedCategories(prev => {
+      if (prev.includes(categoryName)) {
+        return prev.filter(c => c !== categoryName);
+      } else {
+        return [...prev, categoryName];
+      }
+    });
+  };
+
+  const clearFilters = () => {
+    setSelectedCategories([]);
+    productStore.getState().setSearchQuery("");
+  };
+
+  const productsToDisplay = filteredProducts.length > 0 || selectedCategories.length > 0 || searchQuery 
+    ? filteredProducts 
+    : productsList;
+
   return (
     <>
       <Header className="self-stretch" />
@@ -46,6 +89,15 @@ export default function ShopPage() {
               >
                 Choose the Categories of Products that suits you the best.
               </Text>
+              {searchQuery && (
+                <Text
+                  size="paragraph_02"
+                  as="p"
+                  className="w-full text-[16px] font-normal leading-[26px] tracking-[-0.30px] !text-colors-white mt-2"
+                >
+                  Search results for: <span className="font-bold">"{searchQuery}"</span>
+                </Text>
+              )}
             </div>
             {/* Top Heading Ends */}
           </div>
@@ -65,9 +117,10 @@ export default function ShopPage() {
                       Filters
                     </Heading>
                     <Text
+                      onClick={clearFilters}
                       size="texts"
                       as="p"
-                      className="self-end text-[14px] font-normal tracking-[-0.40px] !text-gray-400 underline"
+                      className="self-end text-[14px] font-normal tracking-[-0.40px] !text-gray-400 underline cursor-pointer"
                     >
                       Clear filters
                     </Text>
@@ -82,13 +135,17 @@ export default function ShopPage() {
                       Categories
                     </Heading>
                     {categories.map((category, index) => (
+                      
                       <CheckBox
                         name={category.name}
                         label={category.name}
                         id={category.name}
                         key={"category" + index}
+                        checked={selectedCategories.includes(category.name)}
+                        onChange={() => handleCategoryChange(category.name)}
                         className="gap-3 pr-[34px] text-[13px] tracking-[-0.40px] text-text_primary sm:pr-5"
                       />
+                  
                       // console.log(category)
                     ))}
                   </div>
@@ -101,19 +158,47 @@ export default function ShopPage() {
             {/* products */}
             <div className="flex-col items-start md:flex-col">
               <div className="mt-1 flex flex-1 flex-col items-center gap-[42px] self-center md:self-stretch">
+                {productsToDisplay.length === 0 && (
+                  <div className="flex flex-col items-center justify-center p-10">
+                    <Img src="/images/defaultNoData.png" alt="No products found" className="w-32 h-32 mb-4" />
+                    <Text
+                      size="heading_04"
+                      as="p"
+                      className="text-[18px] font-semibold text-center"
+                    >
+                      No products found
+                    </Text>
+                    <Text
+                      size="paragraph_04"
+                      as="p"
+                      className="text-[14px] font-normal text-center mt-2"
+                    >
+                      Try adjusting your search or filter criteria
+                    </Text>
+                  </div>
+                )}
                 <div className="ml-11 grid grid-cols-2 gap-8 self-stretch md:ml-0 md:grid-cols-2 sm:grid-cols-1">
                   <Suspense fallback={<div>Loading feed...</div>}>
-                    {productsList.map((d, index) => (
+                    {productsToDisplay.map((d, index) => (
+                      <>
+                      <Link to={`/productpagetwo/${d.id}`} onClick={() => fetchProducts(d.id)}>
+                      {/* {console.log({...d})} */}
                       <ProductDetails {...d} key={"productgrid" + index} />
+                      </Link>
+                      </>
                     ))}
                   </Suspense>
                 </div>
-                <Button
-                  shape="square"
-                  className="min-w-[298px] p-2 !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
-                >
-                  Load more products
-                </Button>
+                {productsToDisplay.length > 0 && (
+                  <Button
+                    onClick={() => loadMoreProducts()}
+                    shape="square"
+                    className={`min-w-[298px] p-2 !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f ${!hasMoreProducts ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={!hasMoreProducts || searchQuery}
+                  >
+                    {hasMoreProducts && !searchQuery ? 'Load more products' : 'No more products'}
+                  </Button>
+                )}
               </div>
             </div>
             {/* products */}
@@ -146,7 +231,7 @@ export default function ShopPage() {
                 as="p"
                 className="text-[14px] font-normal tracking-[-0.40px] mt-4 sticky top-16"
               >
-                Showing 1003 Products
+                Showing {noOfProducts} Products
               </Text>
             </div>
             {/* SortBy */}

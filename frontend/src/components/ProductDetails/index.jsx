@@ -1,9 +1,10 @@
 import { Text, Heading } from "./..";
 import React from "react";
 export default function ProductDetails({...props}){
+  // console.log(props);
   return (
     <div
-      {...props}
+      // {...props}
       className={`${props.className} flex flex-col items-center justify-center w-full gap-3.5`}
     >
       <div className="flex flex-col items-center justify-center gap-2.5">

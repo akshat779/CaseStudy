@@ -11,16 +11,25 @@ import { FaRegUserCircle } from "react-icons/fa";
 import React, { useEffect } from "react";
 
 const Header = () => {
-  const { logout, isAuthenticated,getCurrentUser, image,role } = userStore();
+  const { logout, isAuthenticated, getCurrentUser, image, role } = userStore();
+  const { setSearchQuery } = productStore();
  
   const handleLogout = () => {
     logout();
   };
   useEffect(()=> {
     getCurrentUser();
-      },[])
+  },[])
 
   const [searchBarValue2, setSearchBarValue2] = React.useState("");
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      setSearchQuery(searchBarValue2);
+      e.preventDefault();
+    }
+  };
+
   return (
     <header className="flex flex-row items-center justify-between gap-4 self-stretch mb-8">
       <div className="container-md mt-4 flex items-center justify-between gap-5 self-stretch md:flex-row md:px-5">
@@ -59,27 +68,28 @@ const Header = () => {
                   </Link>
                 </Text>
               </a> : null}
-              {role == "tenant" ? <a href="#" className="cursor-pointer">
+              {role == "tenant" ? <Link to="/createproduct" className="cursor-pointer">
                 <Text
                   as="p"
                   className="text-[17px] font-normal tracking-[-0.60px] hover:font-bold"
                 >
                   Create Product
                 </Text>
-              </a> : null}
+              </Link> : null}
             </li>
           </ul>
           <Input
             size="sm"
             shape="square"
             name="search"
-            placeholder={`Search`}
+            placeholder={`Search products...`}
             value={searchBarValue2}
             onChange={(e) => setSearchBarValue2(e.target.value)}
+            onKeyDown={handleSearch}
             prefix={
               <div className="flex h-[16px] w-[14px] items-center justify-center">
                 <Img
-                  src="images/img_search_text_primary.svg"
+                  src="/images/img_search_text_primary.svg"
                   alt="Search"
                   className="h-[15px] w-[15px] object-contain"
                 />
@@ -88,9 +98,13 @@ const Header = () => {
             suffix={
               searchBarValue2?.length > 0 ? (
                 <CloseSVG
-                  onClick={() => setSearchBarValue2("")}
-                  height={14}
-                  width={14}
+                className="ml-6 cursor-pointer"
+                  onClick={() => {
+                    setSearchBarValue2("");
+                    setSearchQuery("");
+                  }}
+                  height={18}
+                  width={18}
                 />
               ) : null
             }
@@ -101,7 +115,7 @@ const Header = () => {
           <div className="flex w-full justify-center items-center gap-1.5">
             <a href="#">
               <Img
-                src="images/img_bag_text_primary.svg"
+                src="/images/img_bag_text_primary.svg"
                 alt="Bag"
                 className="h-[20px]"
               />
