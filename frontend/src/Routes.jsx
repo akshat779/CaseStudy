@@ -5,10 +5,6 @@ import HeroOne from "./pages/HeroOne";
 import Shop from "./pages/Shop";
 import ProductOne from "./pages/ProductOne";
 import CartOne from "./pages/CartOne";
-import CheckoutAddress from "./pages/CheckoutAddress";
-import CheckoutShipping from "./pages/CheckoutShipping";
-import CheckoutPayment from "./pages/CheckoutPayment";
-import Reviews from "./pages/Reviews";
 import ProductPageTwo from "./pages/ProductPageTwo";
 import LoginEmail from "./pages/LoginEmail";
 import CreateTenant from "./pages/CreateTenant";
@@ -18,35 +14,44 @@ import CreateAdmin from "./pages/CreateAdmin";
 import OrderHistory from "./pages/OrderHistory";
 import ProtectedRoute from "./utils/protectedRoute";
 import userStore from "./store/userStore";
+import MyProducts from "./pages/MyProducts";
 const ProjectRoutes = () => {
   const { isAuthenticated } = userStore();
   let element = useRoutes([
-    { path: "/", element: <Home /> },
+    { path: "/", element: <HeroOne /> },
     { path: "*", element: <NotFound /> },
     { path: "/heroone", element: <HeroOne /> },
     { path: "/shop", element: <Shop /> },
     { path: "/productone", element: <ProductOne /> },
-    { path: "/cartone",
-      element:(
-      <ProtectedRoute allowedRoles={["user","tenant"]}>
-        <CartOne />
-      </ ProtectedRoute >
-      )
+    {
+      path: "/cartone",
+      element: (
+        <ProtectedRoute allowedRoles={["user", "tenant"]}>
+          <CartOne />
+        </ProtectedRoute>
+      ),
     },
-    { 
-      path: "/orders", 
+    {
+      path: "/orders",
       element: (
         <ProtectedRoute allowedRoles={["user", "tenant"]}>
           <OrderHistory />
         </ProtectedRoute>
-      ) 
+      ),
     },
-    { path: "/checkoutaddress", element: <CheckoutAddress /> },
-    { path: "/checkoutshipping", element: <CheckoutShipping /> },
-    { path: "/checkoutpayment", element: <CheckoutPayment /> },
-    { path: "/reviews", element: <Reviews /> },
-    { path: "/productpagetwo/:id", element: <ProductPageTwo /> },
-    { path: "/loginemail", element: isAuthenticated ? <HeroOne /> :<LoginEmail /> },
+
+    {
+      path: "/productpagetwo/:id",
+      element: (
+        <ProtectedRoute allowedRoles={["user"]}>
+          <ProductPageTwo />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/loginemail",
+      element: isAuthenticated ? <HeroOne /> : <LoginEmail />,
+    },
     { path: "/createuser", element: <CreateUser /> },
     {
       path: "/createtenant",
@@ -68,10 +73,18 @@ const ProjectRoutes = () => {
       path: "/createadmin",
       element: (
         <ProtectedRoute allowedRoles={["admin"]}>
-          <CreateAdmin/>
+          <CreateAdmin />
         </ProtectedRoute>
       ),
     },
+    {
+      path: "/myproducts",
+      element: (
+        <ProtectedRoute allowedRoles={["tenant"]}>
+          <MyProducts />
+        </ProtectedRoute>
+      ),
+    }
   ]);
   return element;
 };

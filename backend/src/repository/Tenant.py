@@ -79,3 +79,9 @@ def productUpdate(db:Session,product:models.Product,request:schemas.ProductCreat
     product.image = request.image
     db.commit()
     return product
+
+
+def getMyProducts(db:Session,tenant_id:int):
+    products = db.query(models.Product).filter(models.Product.tenant_id == tenant_id).all()
+    # print(tenant_id)
+    return products

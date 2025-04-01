@@ -3,6 +3,7 @@ import FooterPage from "../../components/Footer";
 import Header from "../../components/Header";
 import React, { useState } from "react";
 // import axiosUtil from "../../utils/axiosUtil";
+import Cookies from "js-cookie"
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +14,7 @@ export default function LoginEmailPage() {
   const[password,setPassword] = useState("");
   const {login,role} = userStore();
   const navigate = useNavigate();
+  const token = Cookies.get("token");
 
   console.log("from login",role)
 
@@ -102,12 +104,12 @@ export default function LoginEmailPage() {
               Login
             </Button>
             {
-              role == "user" ?
+              !token || role == "user"  ?
               <Button
                 shape="square"
                 className="min-w-[30%] p-2 !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
               >
-            <Link to="/signupemail">
+            <Link to="/createuser">
                 New User? Sign Up
             </Link>
               </Button>

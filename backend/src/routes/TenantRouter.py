@@ -131,3 +131,10 @@ def updateProduct(id:int,request:schemas.ProductCreate,db:Session=Depends(get_db
     if(product.tenant_id != tenant_id):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,detail="You are not authorized to update this product")
     return Tenant.productUpdate(db,product,request)
+
+
+@router.get("/myproducts/get",response_model=List[schemas.Product],dependencies=[Depends(keycloak.has_role("tenant"))])
+def getMyProducts(db:Session=Depends(get_db),current_tenant:models.User=Depends(keycloak.get_current_user)):
+    tenant_id = db.query(models.User).filter(models.User.username == current_tenant.username).first().id
+    print(tenant_id)
+    return Tenant.getMyProducts(db,tenant_id)

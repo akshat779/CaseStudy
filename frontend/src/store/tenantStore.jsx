@@ -5,6 +5,7 @@ import axiosUtil from "../utils/axiosUtil";
 const tenantStore = (set, get) => ({
   tenants: [],
   products: [],
+  myproducts:[],
   currentTenantemail: "",
   currentTenantusername: "",
   currentTenantfirstname: "",
@@ -82,6 +83,35 @@ const tenantStore = (set, get) => ({
       console.log("Error creating product ", error);
     }
   },
+
+  fetchMyProducts : async() => {
+    try{
+      const response = await axiosUtil.get("/tenant/myproducts/get")
+      console.log("################################################################",response.data);
+      set({myproducts:response.data});
+    }
+    catch(error){
+      console.log("################################################Error in fetching my products",error); 
+    }
+  },
+
+  deleteProduct : async(id) => {
+    try{
+      const response = await axiosUtil.delete(`/tenant/deleteproduct/${id}`);
+      if (response.data) {
+        await get().fetchMyProducts();
+        // toast.success("Product deleted Successfully")
+        return { success: true, data: response.data };
+      }
+      // toast.error("Not able to delete")
+      return { success: false, error: 'Failed to delete product item' };
+    }
+    catch(error){
+      console.log(error);
+      // toast.error("Not able to delete")
+      return { success: false, error: error.message };
+    }
+  }
 });
 
 const useTenantStore = create(tenantStore);

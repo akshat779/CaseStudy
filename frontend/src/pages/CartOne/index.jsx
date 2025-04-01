@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet";
 import { Text, Img, Heading, Button, Input } from "../../components";
 import Header from "../../components/Header";
-import ProductDetails1 from "../../components/ProductDetails1";
+// import ProductDetails1 from "../../components/ProductDetails1";
 import CartItem from "../../components/CartItem";
 import useCartStore from "../../store/cartStore";
 import { useEffect, useState } from "react";

@@ -215,13 +215,28 @@ const Header = () => {
               
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20 py-1">
-                  <Link 
+                  {role === 'user' && (<Link 
                     to="/orders" 
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     onClick={() => setDropdownOpen(false)}
                   >
                     My Orders
-                  </Link>
+                  </Link>)}
+                  {role === 'admin' && (<Link 
+                    to="/orders" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    My Tenants
+                  </Link>)}
+                  {role === 'tenant' && (<Link 
+                    to="/myproducts" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    My Products
+                  </Link>)}
+                  
                   <div 
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                     onClick={() => {
