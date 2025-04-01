@@ -19,8 +19,8 @@ export default function ProductComponent() {
     fetchProduct(id);
   }, [id,fetchProduct]);
 
-  const {name,description,price,category} = currentProduct;
-  console.log(category);
+  const {name,description,price,category,image} = currentProduct;
+  console.log(image)
 
   return (
     <>
@@ -145,7 +145,8 @@ export default function ProductComponent() {
                {/* Add to cart and dropdown buttons */}
             </div>
              {/* placeholder */}
-             <div className="relative ml-[-70px]  h-[350px] w-[350px] bg-gray-400" />
+             {image ?  (<img className="relative ml-[-70px]  h-[350px] w-[350px] bg-gray-400 bg-contain" src={image}/>) : (<div className="relative ml-[-70px]  h-[350px] w-[350px] bg-gray-400" />)}
+             
               {/* placeholder */}
           </div>
         </div>

@@ -4,6 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
+
+
 const userStore = create((set) => ({
   user: null,
   isAuthenticated: !!Cookies.get("access_token"),
@@ -12,6 +14,7 @@ const userStore = create((set) => ({
   firstname: null,
   users: [],
   products: [],
+  
   login: async (username, password) => {
     try {
       const response = await axiosUtil.post("/login/", {
@@ -47,6 +50,7 @@ const userStore = create((set) => ({
   },
 
   logout: () => {
+   
     Cookies.remove("access_token");
     set(() => {
       console.log("Logged Out");
@@ -60,6 +64,7 @@ const userStore = create((set) => ({
       };
     });
     toast.success("Logged Out!");
+    window.location.href = "/heroone";
   },
 
   getProducts: async () => {

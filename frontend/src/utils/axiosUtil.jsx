@@ -41,7 +41,7 @@ axiosUtil.interceptors.request.use(
                 console.log("Token expired or invalid. Logging out...");
                 Cookies.remove("access_token"); // Clear the expired token
                 toast.error("Session expired. Please login again.");
-                window.location.href = "/loginemail"; 
+                window.location.href = "/heroone"; 
             }
         }
         return config;

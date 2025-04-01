@@ -1,14 +1,14 @@
 import { Text, Heading } from "./..";
 import React from "react";
 export default function ProductDetails({...props}){
-  // console.log(props);
+  
   return (
     <div
       // {...props}
       className={`${props.className} flex flex-col items-center justify-center w-full gap-3.5`}
     >
       <div className="flex flex-col items-center justify-center gap-2.5">
-      <div className="h-[264px] w-[264px] bg-gray-400" />
+      {props.image ? <img src={props.image} className="h-[264px] w-[264px] bg-gray-400 object-cover" /> :(<div className="h-[264px] w-[264px] bg-gray-400" />)}
       <div className="flex flex-row justify-between  items-start gap-1.5 self-stretch">
         <div className="flex-col flex-wrap justify-between gap-5 self-stretch">
           <Heading

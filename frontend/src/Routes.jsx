@@ -26,7 +26,13 @@ const ProjectRoutes = () => {
     { path: "/heroone", element: <HeroOne /> },
     { path: "/shop", element: <Shop /> },
     { path: "/productone", element: <ProductOne /> },
-    { path: "/cartone", element: <CartOne /> },
+    { path: "/cartone",
+      element:(
+      <ProtectedRoute allowedRoles={["user","tenant"]}>
+        <CartOne />
+      </ ProtectedRoute >
+      )
+    },
     { path: "/checkoutaddress", element: <CheckoutAddress /> },
     { path: "/checkoutshipping", element: <CheckoutShipping /> },
     { path: "/checkoutpayment", element: <CheckoutPayment /> },

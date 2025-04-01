@@ -113,13 +113,13 @@ const Header = () => {
         </div>
         <div className="flex w-[12%] items-center self-end gap-5">
           <div className="flex w-full justify-center items-center gap-1.5">
-            <a href="#">
+            <Link to="/cartone">
               <Img
                 src="/images/img_bag_text_primary.svg"
                 alt="Bag"
                 className="h-[20px]"
               />
-            </a>
+            </Link>
             <Text as="p" className="text-[17px] font-normal tracking-[-0.60px]">
               0
             </Text>
