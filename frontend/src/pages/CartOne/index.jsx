@@ -173,7 +173,7 @@ export default function CartOnePage() {
                         <Button
                           variant="fill"
                           shape="square"
-                          className="min-w-[200px] border-[0.5px] border-primary-0 px-[34px] font-semibold tracking-[-0.40px] py-2 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
+                          className="min-w-[200px] border-[0.5px] border-primary-0 px-[34px] font-semibold tracking-[-0.40px] py-2 text-gray-50 hover:text-[#1D1D1D] hover:bg-[#FFFFFF] !text-black-900_7f"
                         >
                           Browse Products
                         </Button>
@@ -259,7 +259,7 @@ export default function CartOnePage() {
                       shape="square"
                       onClick={handlePlaceOrder}
                       disabled={isPlacingOrder}
-                      className={`min-w-[440px] border-[0.5px] border-primary-0 px-[34px] font-semibold tracking-[-0.40px] py-2 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f ${isPlacingOrder ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`min-w-[440px] border-[0.5px] border-primary-0 px-[34px] font-semibold tracking-[-0.40px] py-2 text-gray-50 hover:text-[#1D1D1D] hover:bg-[#FFFFFF] !text-black-900_7f ${isPlacingOrder ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                       {isPlacingOrder ? "Processing..." : "Place Order"}
                     </Button>

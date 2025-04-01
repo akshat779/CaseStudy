@@ -32,7 +32,7 @@ const SelectBox = React.forwardRef(
   ) => {
     return (
       <>
-        {" "}
+        
         <Select
           ref={ref}
           options={options}
@@ -103,8 +103,8 @@ const SelectBox = React.forwardRef(
             return event.target.id === "scrollContainer";
           }}
           {...restProps}
-        />{" "}
-        {children}{" "}
+        />
+        {children}
       </>
     );
   }

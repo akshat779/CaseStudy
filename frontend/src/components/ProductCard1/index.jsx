@@ -11,30 +11,30 @@ export default function ProductCard1({
       {...props}
       className={`${props.className} flex flex-col justify-center w-[24%] md:w-full`}
     >
-      {" "}
+      
       <div className="flex flex-col items-start self-stretch">
-        {" "}
-        <div className="h-[264px] w-[264px] bg-gray-400" />{" "}
+        
+        <div className="h-[264px] w-[264px] bg-gray-400" />
         <div className="mt-3.5 flex flex-wrap justify-between gap-5 self-stretch">
-          {" "}
+          
           <Heading
             size="headingmd"
             as="h6"
             className="text-[17px] font-bold tracking-[-0.40px]"
           >
-            {" "}
-            {productTitle}{" "}
-          </Heading>{" "}
+            
+            {productTitle}
+          </Heading>
           <Text as="p" className="text-[17px] font-normal tracking-[-0.40px]">
-            {" "}
-            {productSize}{" "}
-          </Text>{" "}
-        </div>{" "}
+            
+            {productSize}
+          </Text>
+        </div>
         <Text as="p" className="text-[17px] font-normal tracking-[-0.40px]">
-          {" "}
-          {productPrice}{" "}
-        </Text>{" "}
-      </div>{" "}
+          
+          {productPrice}
+        </Text>
+      </div>
     </div>
   );
 }

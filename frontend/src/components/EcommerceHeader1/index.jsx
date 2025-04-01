@@ -15,37 +15,37 @@ export default function EcommerceHeader1({
   return (
     <div
       {...props}
-      className={`${props.className} flex flex-col self-stretch items-center w-full mt-11 mb-1 gap-3 mx-auto lg:px-5 md:px-5 max-w-[1400px]`}
+      className={`${props.className} flex flex-col self-stretch items-center w-full mt-11 mb-1 gap-3 mx-auto lg:px-5 md:px-5 max-w-[1400px]`}
     >
       {" "}
-      <div className="container-xs mt-3 flex items-center self-stretch md:flex-col md:px-5">
+      <div className="container-xs mt-3 flex items-center self-stretch md:flex-col md:px-5">
         
-        <div className="flex w-full items-center justify-center gap-4 sm:flex-col">
+        <div className="flex w-full items-center justify-center gap-4 sm:flex-col">
           {" "}
-          <div className="flex flex-1 flex-wrap items-center justify-between gap-5 sm:self-stretch">
+          <div className="flex flex-1 flex-wrap items-center justify-between gap-5 sm:self-stretch">
             
             <Heading
               size="headinglg"
               as="h5"
-              className="!font-inter text-[20px] font-bold tracking-[-0.60px]"
+              className="!font-inter text-[20px] font-bold tracking-[-0.60px]"
             >
               {logoText}{" "}
             </Heading>
             
-            <Text as="p" className="text-[17px] font-normal tracking-[-0.60px]">
+            <Text as="p" className="text-[17px] font-normal tracking-[-0.60px]">
               {" "}
               {shopText}
             </Text>
             
-            <Text as="p" className="text-[17px] font-normal tracking-[-0.60px]">
+            <Text as="p" className="text-[17px] font-normal tracking-[-0.60px]">
               {storiesText}{" "}
             </Text>{" "}
-            <Text as="p" className="text-[17px] font-normal tracking-[-0.60px]">
+            <Text as="p" className="text-[17px] font-normal tracking-[-0.60px]">
               {aboutText}
             </Text>{" "}
           </div>
           
-          <div className="flex items-center gap-3.5 px-4">
+          <div className="flex items-center gap-3.5 px-4">
             
             <Img
               src="images/img_search.svg"
@@ -54,14 +54,14 @@ export default function EcommerceHeader1({
             />{" "}
             <Text
               as="p"
-              className="text-[17px] font-normal tracking-[-0.60px] !text-text_secondary"
+              className="text-[17px] font-normal tracking-[-0.60px] !text-text_secondary"
             >
               {searchText}
             </Text>{" "}
           </div>
           
         </div>{" "}
-        <div className="flex w-full items-center justify-end sm:flex-col">
+        <div className="flex w-full items-center justify-end sm:flex-col">
           
           <Input
             size="sm"

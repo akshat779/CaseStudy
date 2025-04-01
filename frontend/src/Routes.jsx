@@ -1,9 +1,8 @@
 import { useRoutes } from "react-router-dom";
-import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import HeroOne from "./pages/HeroOne";
 import Shop from "./pages/Shop";
-import ProductOne from "./pages/ProductOne";
+
 import CartOne from "./pages/CartOne";
 import ProductPageTwo from "./pages/ProductPageTwo";
 import LoginEmail from "./pages/LoginEmail";
@@ -22,7 +21,7 @@ const ProjectRoutes = () => {
     { path: "*", element: <NotFound /> },
     { path: "/heroone", element: <HeroOne /> },
     { path: "/shop", element: <Shop /> },
-    { path: "/productone", element: <ProductOne /> },
+    
     {
       path: "/cartone",
       element: (

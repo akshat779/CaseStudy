@@ -15,7 +15,7 @@ export default function ProductReview({
       {" "}
       <div className="mr-1 flex items-center justify-between gap-5 self-stretch sm:mr-0">
         {" "}
-        {!!ratingBar ? (
+        {!ratingBar ? (
           <RatingBar
             value={1}
             isEditable={true}

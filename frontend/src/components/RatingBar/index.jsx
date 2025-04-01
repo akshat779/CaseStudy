@@ -11,7 +11,7 @@ const RatingBar = ({
 }) => {
   return (
     <>
-      {" "}
+      
       <ReactStars
         edit={isEditable}
         classNames={className}
@@ -21,8 +21,8 @@ const RatingBar = ({
         activeColor={activeColor}
         {...restProps}
         key={restProps.value || 1}
-      />{" "}
-      {children}{" "}
+      />
+      {children}
     </>
   );
 };

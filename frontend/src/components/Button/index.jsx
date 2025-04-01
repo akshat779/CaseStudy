@@ -8,19 +8,19 @@ const shapes = {
 
 const variants = {
   fill: {
-    blue_A400: "bg-blue-a400 text-colors-white",
-    colors_white: "bg-colors-white text-colors-grey-grey_1",
-    primary_0: "bg-primary-0 text-colors-white",
+    blue_A400: "bg-blue-a400 text-colors-white",
+    colors_white: "bg-colors-white text-colors-grey-grey_1",
+    primary_0: "bg-primary-0 text-colors-white",
   },
   outline: {
-    text_primary: "border-text_primary border border-solid text-text_primary",
-    primary_0: "border-primary-0 border-[0.5px] border-solid text-primary-0",
+    text_primary: "border-text_primary border border-solid text-text_primary",
+    primary_0: "border-primary-0 border-[0.5px] border-solid text-primary-0",
   },
 };
 
 const sizes = {
-  xs: "h-[30px] px-5 text-[13px]",
-  sm: "h-[50px] px-[34px] text-[16px]",
+  xs: "h-[30px] px-5 text-[13px]",
+  sm: "h-[50px] px-[34px] text-[16px]",
 };
 
 const Button = ({
@@ -36,9 +36,9 @@ const Button = ({
 }) => {
   return (
     <button
-      className={`${className} flex flex-row items-center justify-center text-center cursor-pointer whitespace-nowrap tracking-[-0.40px] border-solid ${
+      className={`${className} flex flex-row  items-center justify-center text-center cursor-pointer whitespace-nowrap tracking-[-0.40px] border-solid ${
         shape && shapes[shape]
-      }${size && sizes[size]} ${variant && variants[variant]?.[color]}`}
+      }${size && sizes[size]} ${variant && variants[variant]?.[color]}`}
       {...restProps}
     >
       {!!leftIcon && leftIcon}

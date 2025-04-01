@@ -164,7 +164,7 @@ export default function ProductComponent() {
                 shape="square"
                 onClick={handleAddToCart}
                 disabled={isAddingToCart}
-                className={`min-w-[198px] border-[0.5px] border-primary-0 px-8 py-2 font-semibold tracking-[-0.40px] sm:px-5 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f ${
+                className={`min-w-[198px] border-[0.5px] border-primary-0 text-gray-50 px-8 py-2 font-semibold tracking-[-0.40px] sm:px-5 hover:bg-[#ffffff] hover:text-[#1D1D1D] !text-black-900_7f ${
                   isAddingToCart ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >

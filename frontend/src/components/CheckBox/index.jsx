@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-const variants = { primary: "border-primary-0 border border-solid   " };
-const sizes = { xs: "h-[18px] w-[18px]", sm: "h-[20px] w-[20px]" };
+const variants = { primary: "border-primary-0 border border-solid " };
+const sizes = { xs: "h-[18px] w-[18px]", sm: "h-[20px] w-[20px]" };
 
 const CheckBox = React.forwardRef(
   (
@@ -26,7 +26,7 @@ const CheckBox = React.forwardRef(
       <>
         
         <div
-          className={className + "flex items-center gap-[5px] cursor-pointer"}
+          className={className + "flex items-center gap-[5px] cursor-pointer"}
         >
           
           <input
