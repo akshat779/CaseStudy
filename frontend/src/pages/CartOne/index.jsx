@@ -32,7 +32,7 @@ export default function CartOnePage() {
   const [localCartItems, setLocalCartItems] = useState([]);
   const navigate = useNavigate();
   
-  // Fetch cart items on initial load
+  
   useEffect(() => {
     const loadCartItems = async () => {
       setIsLoading(true);
@@ -49,12 +49,12 @@ export default function CartOnePage() {
     loadCartItems();
   }, [fetchCartItems]);
   
-  // Set local cart items when cartItems from store changes
+  
   useEffect(() => {
     setLocalCartItems(cartItems);
   }, [cartItems]);
   
-  // Calculate cart totals
+  
   const subtotal = localCartItems.reduce((total, item) => {
     return total + parseFloat(item.total_price || 0);
   }, 0).toFixed(2);
@@ -65,7 +65,7 @@ export default function CartOnePage() {
     if (confirm("Are you sure you want to clear your cart? This action cannot be undone.")) {
       setIsClearing(true);
       try {
-        // Update local state immediately for UI feedback
+      
         setLocalCartItems([]);
         
         const result = await clearCart();
@@ -73,13 +73,13 @@ export default function CartOnePage() {
           toast.success("Cart cleared successfully");
         } else {
           toast.error("Failed to clear cart");
-          // If server clear fails, refresh cart items to stay in sync
+          
           await fetchCartItems();
         }
       } catch (error) {
         toast.error("Error clearing cart");
         console.error("Clear cart error:", error);
-        // If there's an error, refresh cart items to stay in sync
+        
         await fetchCartItems();
       } finally {
         setIsClearing(false);
@@ -92,30 +92,30 @@ export default function CartOnePage() {
     
     setIsPlacingOrder(true);
     try {
-      // Update local state immediately for UI feedback
+     
       setLocalCartItems([]);
       
       const response = await axiosUtil.post('/user/placeorders');
       
       if (response.status === 200 || response.status === 201) {
-        // Force reset the cart in the store to ensure it's empty
+       
         resetCart();
         
         toast.success("Order placed successfully!");
         
-        // Navigate to orders page after a short delay to see the new order
+       
         setTimeout(() => {
           navigate('/orders');
         }, 1500);
       } else {
         toast.error("Failed to place order");
-        // If order placement fails, refresh cart items to stay in sync
+       
         await fetchCartItems();
       }
     } catch (error) {
       toast.error(error.response?.data?.detail || "Error placing order");
       console.error("Place order error:", error);
-      // If there's an error, refresh cart items to stay in sync
+    
       await fetchCartItems();
     } finally {
       setIsPlacingOrder(false);

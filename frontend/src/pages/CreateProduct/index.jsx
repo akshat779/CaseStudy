@@ -29,31 +29,31 @@ export default function CreateProduct() {
     const file = e.target.files[0];
     if (!file) return;
     
-    // Validate file type
+    
     const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp'];
     if (!validTypes.includes(file.type)) {
       toast.error("Please upload a valid image file (JPEG, PNG, JPG, GIF, WEBP)");
       return;
     }
     
-    // Validate file size (max 5MB)
+  
     if (file.size > 5 * 1024 * 1024) {
       toast.error("Image size should be less than 5MB");
       return;
     }
     
-    // Create a local preview
+    
     const localPreview = URL.createObjectURL(file);
     setPreviewImage(localPreview);
     
-    // Start upload to Cloudinary
+  
     setIsUploading(true);
     setUploadProgress(10);
     
     try {
       toast.loading("Uploading image...");
       
-      // Upload to Cloudinary with progress tracking
+     
       const result = await uploadImageToCloudinary(file, (progress) => {
         setUploadProgress(progress);
       });
@@ -96,7 +96,7 @@ export default function CreateProduct() {
         description,
         price,
         quantity,
-        imageUrl, // Using the Cloudinary URL instead of base64
+        imageUrl, 
       );
 
       if (response) {

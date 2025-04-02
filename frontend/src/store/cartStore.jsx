@@ -5,7 +5,7 @@ const useCartStore = create((set, get) => ({
   cartItems: [],
   cartCount: 0,
   
-  // Fetch cart items from the server
+ 
   fetchCartItems: async () => {
     try {
       const response = await axiosUtil.get('/user/orders/order-items');
@@ -16,14 +16,13 @@ const useCartStore = create((set, get) => ({
       return response.data;
     } catch (error) {
       console.error('Error fetching cart items:', error);
-      // If there's an error, we should still update the store with empty cart
-      // This handles cases where the cart is cleared on the backend
+     
       set({ cartItems: [], cartCount: 0 });
       return [];
     }
   },
   
-  // Add an item to the cart
+  
   addToCart: async (productId, quantity) => {
     try {
       const response = await axiosUtil.post('/user/order-items/', {
@@ -32,7 +31,7 @@ const useCartStore = create((set, get) => ({
       });
       
       if (response.data) {
-        // Update the cart items and count
+        
         await get().fetchCartItems();
         return { success: true, data: response.data };
       }
@@ -44,7 +43,7 @@ const useCartStore = create((set, get) => ({
     }
   },
   
-  // Update a cart item quantity
+ 
   updateCartItem: async (orderItemId, productId, quantity) => {
     try {
       const response = await axiosUtil.put(`/user/order-items/${orderItemId}`, {
@@ -64,7 +63,7 @@ const useCartStore = create((set, get) => ({
     }
   },
   
-  // Delete a specific cart item
+ 
   deleteCartItem: async (orderItemId) => {
     try {
       const response = await axiosUtil.delete(`/user/order-items/${orderItemId}`);
@@ -81,7 +80,7 @@ const useCartStore = create((set, get) => ({
     }
   },
   
-  // Clear the entire cart
+  
   clearCart: async () => {
     try {
       const response = await axiosUtil.delete(`/user/orderitems`);
@@ -95,13 +94,13 @@ const useCartStore = create((set, get) => ({
       return { success: false, error: 'Failed to clear cart on server' };
     } catch (error) {
       console.error('Error clearing cart:', error);
-      // Still reset the local state even if the server operation fails
+     
       set({ cartItems: [], cartCount: 0 });
       return { success: false, error: error.message };
     }
   },
   
-  // Force reset cart (used after placing an order)
+ 
   resetCart: () => {
     set({ cartItems: [], cartCount: 0 });
     return { success: true };
