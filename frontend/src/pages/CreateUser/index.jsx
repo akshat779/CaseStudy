@@ -16,7 +16,7 @@ export default function CreateUser() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
@@ -132,7 +132,7 @@ export default function CreateUser() {
                 placeholder={`Password`}
                 className="!border-[0.5px] px-4 tracking-[-0.30px]"
               />
-              <label
+              {/* <label
                 htmlFor="fileName"
                 className="flex justify-center items-center !border-[4px] rounded-xl h-[80px] text-center border-gray-400 border-dashed  tracking-[-0.30px]"
               >
@@ -147,7 +147,7 @@ export default function CreateUser() {
                 <span className="text-lg font-medium text-gray-600">
                   Click and drag to upload an image
                 </span>
-              </label>
+              </label> */}
             </div>
             <div className="flex items-center justify-between gap-5 my-4">
               <CheckBox

@@ -16,7 +16,7 @@ export default function CreateAdmin() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
@@ -77,7 +77,7 @@ export default function CreateAdmin() {
             as="h1"
             className="ml-1 text-[22px] font-semibold tracking-[-0.55px] !text-colors-base-color_6 md:ml-0"
           >
-            Welcome [Admin] AdminName
+            Welcome Admin 
           </Heading>
           <Heading
             as="h2"
@@ -132,7 +132,7 @@ export default function CreateAdmin() {
                 placeholder={`Password`}
                 className="!border-[0.5px] px-4 tracking-[-0.30px]"
               />
-              <label
+              {/* <label
                 htmlFor="fileName"
                 className="flex justify-center items-center !border-[4px] rounded-xl h-[80px] text-center border-gray-400 border-dashed  tracking-[-0.30px]"
               >
@@ -147,7 +147,7 @@ export default function CreateAdmin() {
                 <span className="text-lg font-medium text-gray-600">
                   Click and drag to upload an image
                 </span>
-              </label>
+              </label> */}
             </div>
             
           </div>

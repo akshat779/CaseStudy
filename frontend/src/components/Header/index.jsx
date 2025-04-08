@@ -105,6 +105,7 @@ const Header = () => {
               </li>
             </Link>
             <li>
+              {role == "user" ? (
               <Link to="/shop">
                 <Text
                   as="p"
@@ -112,20 +113,21 @@ const Header = () => {
                 >
                   Shop Products
                 </Text>
-              </Link>
+              </Link>) : (null)
+              }
             </li>
 
             <li>
-              {role == "admin" ? <a href="#" className="cursor-pointer">
+              {role == "admin" ? 
                 <Text
                   as="p"
-                  className="text-[17px] font-normal tracking-[-0.60px] hover:font-bold"
+                  className="text-[17px] font-normal tracking-[-0.60px] hover:font-bold cursor-pointer"
                 >
                   <Link to="/createtenant">
                     Create Tenant
                   </Link>
                 </Text>
-              </a> : null}
+               : null}
               {role == "tenant" ? <Link to="/createproduct" className="cursor-pointer">
                 <Text
                   as="p"
@@ -134,6 +136,19 @@ const Header = () => {
                   Create Product
                 </Text>
               </Link> : null}
+            </li>
+            {role == "admin" ? 
+                <Text
+                  as="p"
+                  className="text-[17px] font-normal tracking-[-0.60px] hover:font-bold cursor-pointer"
+                >
+                  <Link to="/createadmin">
+                    Create Admin
+                  </Link>
+                </Text>
+               : null}
+            <li>
+
             </li>
           </ul>
           <Input
@@ -170,6 +185,7 @@ const Header = () => {
           />
         </div>
         <div className="flex w-[15%] items-center self-end gap-5">
+          {role == "user" ? (
           <div className="flex w-full justify-center items-center gap-1.5">
             <Link to="/cartone" onClick={() => isAuthenticated && fetchCartItems()}>
               <Img
@@ -182,6 +198,7 @@ const Header = () => {
               {cartCount}
             </Text>
           </div>
+          ) : (null)}
           {isAuthenticated ? (
             <Text
               as="p"
@@ -223,11 +240,11 @@ const Header = () => {
                     My Orders
                   </Link>)}
                   {role === 'admin' && (<Link 
-                    to="/orders" 
+                    to="/mytenants" 
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     onClick={() => setDropdownOpen(false)}
                   >
-                    My Tenants
+                    Tenants
                   </Link>)}
                   {role === 'tenant' && (<Link 
                     to="/myproducts" 

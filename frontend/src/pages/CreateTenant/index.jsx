@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
+
 export default function CreateTenant() {
 
   const [username, setUsername] = useState("");
@@ -17,13 +18,15 @@ export default function CreateTenant() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
+  const image = "";
   const navigate = useNavigate();
   const {firstname} = userStore();
 
   
 
   const { createTenant } = useTenantStore();
+  
   const handleSignUp = async () => {
     try {
         const response = await createTenant(
@@ -118,7 +121,7 @@ export default function CreateTenant() {
                 placeholder={`Password`}
                 className="!border-[0.5px] px-4 tracking-[-0.30px]"
               />
-              <label
+              {/* <label
                 htmlFor="fileName"
                 className="flex justify-center items-center !border-[4px] rounded-xl h-[80px] text-center border-gray-400 border-dashed  tracking-[-0.30px]"
               >
@@ -133,7 +136,7 @@ export default function CreateTenant() {
                 <span className="text-lg font-medium text-gray-600">
                   Click and drag to upload an image
                 </span>
-              </label>
+              </label> */}
             </div>
             
           </div>

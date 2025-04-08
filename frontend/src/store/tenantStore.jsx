@@ -112,6 +112,30 @@ const tenantStore = (set, get) => ({
       return { success: false, error: error.message };
     }
   }
+  ,
+  getAllTenants: async () => {
+    const response = await axiosUtil.get("/tenant");
+    const data = response.data;
+    console.log(data);
+    set({tenants:data});
+  },
+  deleteTenant : async(id) => {
+    try{
+      const response = await axiosUtil.delete(`/tenant/delete/${id}`);
+      if (response.data) {
+        await get().getAllTenants();
+        // toast.success("Product deleted Successfully")
+        return { success: true, data: response.data };
+      }
+      // toast.error("Not able to delete")
+      return { success: false, error: 'Failed to delete product item' };
+    }
+    catch(error){
+      console.log(error);
+      // toast.error("Not able to delete")
+      return { success: false, error: error.message };
+    }
+  }
 });
 
 const useTenantStore = create(tenantStore);

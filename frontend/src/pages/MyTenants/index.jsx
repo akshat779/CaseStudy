@@ -8,18 +8,17 @@ import useTenantStore from "../../store/tenantStore";
 import React from "react";
 
 import { Link } from "react-router-dom";
+import TenantCard from "../../components/tenantCard";
 
-export default function MyProducts() {
+export default function MyTenants() {
 
   const [isLoading, setIsLoading] = useState(true);
   
-  const { myproducts, fetchMyProducts} = useTenantStore();
-
-
+  const { tenants, getAllTenants} = useTenantStore();
   useEffect(() => {
     setIsLoading(true);
     try{
-        fetchMyProducts();
+        getAllTenants();
     }
     catch(error){
         console.error("Error fetching products",error);
@@ -29,8 +28,7 @@ export default function MyProducts() {
     }
 
   }, []);
-
-
+  console.log(tenants);
   return (
     <>
       <div className="flex w-full flex-col items-center gap-[50px] bg-background_primary">
@@ -46,7 +44,7 @@ export default function MyProducts() {
                       as="h1"
                       className="text-[36px] font-semibold tracking-[-1.50px] md:text-[34px] sm:text-[32px]"
                     >
-                      Your Products
+                      Tenants
                     </Heading>
                   </div>
 
@@ -54,13 +52,13 @@ export default function MyProducts() {
                     <div className="w-full flex justify-center py-10">
                       <Text className="text-lg">Loading your Products...</Text>
                     </div>
-                  ) : myproducts.length === 0 ? (
+                  ) : tenants.length === 0 ? (
                     <div className="w-full flex flex-col items-center mt-10 py-10">
                       <Text className="text-5xl font-medium mb-2">
-                        You dont have any Products
+                        No Tenants
                       </Text>
                       <Text className="text-sm text-gray-500 mb-6">
-                        Start by Creating a product
+                        Start by Creating a Tenant
                       </Text>
                       <Link to="/createproduct">
                         <Button
@@ -68,14 +66,14 @@ export default function MyProducts() {
                           shape="square"
                           className="min-w-[200px] border-[0.5px] border-primary-0 px-[34px] font-semibold tracking-[-0.40px] py-2 hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
                         >
-                          Create Products
+                          Create A Tenant
                         </Button>
                       </Link>
                     </div>
                   ) : (
                     <div className="w-full">
-                      {myproducts.map((item) => (
-                        <TenantProduct key={item.id} item={item} />
+                      {tenants.map((item) => (
+                        <TenantCard key={item.id} item={item} />
                       ))}
                     </div>
                   )}

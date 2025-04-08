@@ -14,6 +14,7 @@ import OrderHistory from "./pages/OrderHistory";
 import ProtectedRoute from "./utils/protectedRoute";
 import userStore from "./store/userStore";
 import MyProducts from "./pages/MyProducts";
+import MyTenants from "./pages/MyTenants";
 const ProjectRoutes = () => {
   const { isAuthenticated } = userStore();
   let element = useRoutes([
@@ -83,6 +84,14 @@ const ProjectRoutes = () => {
           <MyProducts />
         </ProtectedRoute>
       ),
+    },
+    {
+      path: "/mytenants",
+      element: (
+        <ProtectedRoute allowedRoles={["admin"]}>
+          <MyTenants />
+        </ProtectedRoute>
+      )
     }
   ]);
   return element;

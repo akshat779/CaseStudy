@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+
 import { Heading, Input, Text } from "..";
 import React from "react";
 export default function FooterPage() {
@@ -56,7 +56,7 @@ export default function FooterPage() {
                           as="p"
                           className="text-[16px] font-medium tracking-[-0.20px] !text-gray-900_7f hover:font-semibold hover:!text-colors-base-color_6"
                         >
-                          Women’s
+                          Tablets
                         </Heading>
                       </a>
                     </li>
@@ -66,7 +66,7 @@ export default function FooterPage() {
                           as="p"
                           className="text-[16px] font-medium tracking-[-0.20px] !text-gray-900_7f hover:font-semibold hover:!text-colors-base-color_6"
                         >
-                          Men’s
+                          Electroncics
                         </Heading>
                       </a>
                     </li>
@@ -76,7 +76,7 @@ export default function FooterPage() {
                           as="p"
                           className="text-[16px] font-medium tracking-[-0.20px] !text-gray-900_7f hover:font-semibold hover:!text-colors-base-color_6"
                         >
-                          Kids’
+                          Mobiles
                         </Heading>
                       </a>
                     </li>
@@ -86,49 +86,13 @@ export default function FooterPage() {
                           as="p"
                           className="text-[16px] font-medium tracking-[-0.20px] !text-gray-900_7f hover:font-semibold hover:!text-colors-base-color_6"
                         >
-                          Shoes
+                          Clothing
                         </Heading>
                       </a>
                     </li>
+                    
                     <li>
-                      <a href="#" className="cursor-pointer">
-                        <Heading
-                          as="p"
-                          className="text-[16px] font-medium tracking-[-0.20px] !text-gray-900_7f hover:font-semibold hover:!text-colors-base-color_6"
-                        >
-                          Equipment
-                        </Heading>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="cursor-pointer">
-                        <Heading
-                          as="p"
-                          className="text-[16px] font-medium tracking-[-0.20px] !text-gray-900_7f hover:font-semibold hover:!text-colors-base-color_6"
-                        >
-                          By Activity
-                        </Heading>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="cursor-pointer">
-                        <Heading
-                          as="p"
-                          className="text-[16px] font-medium tracking-[-0.20px] !text-gray-900_7f hover:font-semibold hover:!text-colors-base-color_6"
-                        >
-                          Gift Cards
-                        </Heading>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="cursor-pointer">
-                        <Heading
-                          as="p"
-                          className="text-[16px] font-medium tracking-[-0.20px] !text-gray-900_7f hover:font-semibold hover:!text-colors-base-color_6"
-                        >
-                          Sale
-                        </Heading>
-                      </a>
+                      
                     </li>
                   </ul>
                 </div>

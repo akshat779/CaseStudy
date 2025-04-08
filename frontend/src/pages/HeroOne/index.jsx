@@ -2,17 +2,17 @@ import { Helmet } from "react-helmet";
 import { Button, Text, Heading, Img, Input } from "../../components";
 import userStore from "../../store/userStore";
 import HerooneRowOne from "./HerooneRowOne";
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import FooterPage from "../../components/Footer";
 import { Link } from "react-router-dom";
 export default function HeroOnePage() {
   // const [searchBarValue2, setSearchBarValue2] = React.useState("");
-  const {user,getCurrentUser,role} = userStore();
+  const { user, getCurrentUser, role } = userStore();
   useEffect(() => {
     getCurrentUser();
   }, []);
-  console.log(user,role);
+  console.log(user, role);
   return (
     <>
       <Helmet>
@@ -38,21 +38,23 @@ export default function HeroOnePage() {
               as="p"
               className="mt-3 self-stretch text-center text-[20px] font-normal leading-7 tracking-[-0.40px] !text-text_secondary"
             >
-              Choose from a wide Array of Products, clothes, accessories and more 
+              Choose from a wide Array of Products, clothes, accessories and
+              more
             </Text>
+            {role == "user" ? (
             <Link to="/shop">
-            <Button
-              shape="square"
-              className="min-w-[194px] !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 p-2 hover:font-bold mt-6  hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
-            >
-              
-              Shop All
-            </Button>
+              <Button
+                shape="square"
+                className="min-w-[194px] !border-[0.5px] px-[34px] font-semibold tracking-[-0.40px] sm:px-5 p-2 hover:font-bold mt-6  hover:bg-[#1D1D1D] hover:text-[#FFFFFF] !text-black-900_7f"
+              >
+                Shop All
+              </Button>
             </Link>
+            ) : (null)}
           </div>
         </div>
         <HerooneRowOne />
-      </div >
+      </div>
       <FooterPage />
     </>
   );

@@ -180,12 +180,15 @@ export default function ShopPage() {
                 <div className="ml-11 grid grid-cols-2 gap-8 self-stretch md:ml-0 md:grid-cols-2 sm:grid-cols-1">
                   <Suspense fallback={<div>Loading feed...</div>}>
                     {productsToDisplay.map((d, index) => (
+                      d.quantity <= 0 ? null : (
                       <>
                       <Link to={`/productpagetwo/${d.id}`} onClick={() => fetchProducts(d.id)}>
                       {/* {console.log({...d})} */}
                       <ProductDetails {...d} key={"productgrid" + index} />
                       </Link>
                       </>
+                      )
+                      
                     ))}
                   </Suspense>
                 </div>

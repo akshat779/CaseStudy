@@ -1,6 +1,9 @@
 import { Text, Heading } from "./..";
 import React from "react";
 export default function ProductDetails({...props}){
+  if(props.quantity <= 0) {
+    return null
+  }
   
   return (
     <div
